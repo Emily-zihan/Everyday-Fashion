@@ -108,7 +108,7 @@
         </span>
       </a>
 
-      <!-- Desktop Nav -->
+      <!-- Desktop Nav (已去除 Portfolio 链接) -->
       <nav class="hidden md:flex items-center space-x-8 text-xs tracking-wider uppercase font-medium text-brand-muted">
         <a href="#hero" class="hover:text-brand-dark transition-colors py-2">首页</a>
         <a href="#gallery" class="hover:text-brand-dark transition-colors py-2">灵感大片</a>
@@ -123,9 +123,6 @@
       <div class="hidden lg:flex items-center space-x-4">
         <a href="https://www.luxe.co/" target="_blank" class="p-2 hover:text-brand-accent transition-colors" title="前往华丽志阅读更多资讯">
           <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
-        </a>
-        <a href="#portfolio" class="px-4 py-2 border border-brand-dark text-xs tracking-widest uppercase hover:bg-brand-dark hover:text-white transition-all duration-300 rounded-none">
-          Portfolio
         </a>
       </div>
 
@@ -176,7 +173,7 @@
         </div>
       </div>
 
-      <!-- Hero Visual Card (点击弹窗阅读) -->
+      <!-- Hero Visual Card -->
       <div class="lg:col-span-7">
         <div onclick="openHeroModal()" class="block relative group cursor-pointer img-zoom-container bg-brand-card p-3 border border-brand-border shadow-sm">
           <div class="relative h-[420px] md:h-[500px] overflow-hidden">
@@ -435,7 +432,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
       
-      <!-- Big Moodboard Poster (点击弹窗阅读) -->
+      <!-- Big Moodboard Poster -->
       <div onclick="openParisRunwayModal()" class="content-card filter-item runway luxury md:col-span-7 bg-brand-card p-4 border border-brand-border space-y-4 cursor-pointer group">
         <div class="relative h-[400px] img-zoom-container overflow-hidden">
           <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80" alt="Runway Trend" class="w-full h-full object-cover">
@@ -657,8 +654,9 @@
         点击下方不同行业品类，直观对比快消品（高频效率）与奢侈品（溢价符号）在策略上的核心差异：
       </p>
 
+      <!-- 自动化脚本动态插入的今日实时对标速递区域 -->
       <!-- LAB-UPDATE-START -->
-      <div class="my-6 p-6 bg-white border border-brand-accent shadow-sm text-left">
+      <div class="mb-8 p-6 bg-white border border-brand-accent shadow-sm">
         <div class="flex items-center justify-between mb-3">
           <span class="text-[10px] font-mono uppercase tracking-widest bg-brand-accent/20 text-brand-dark px-3 py-1 font-semibold">🔥 今日实时自动对标速递</span>
           <span class="text-xs text-brand-accent font-mono">AI 动态抓取</span>
@@ -694,7 +692,7 @@
           </div>
           <h3 class="text-xl font-serif font-normal mb-3 text-brand-dark" id="fmcg-title">高频复购与爆品矩阵 (如: 瑞幸 / 三顿半)</h3>
           <p class="text-gray-600 text-xs leading-relaxed font-light mb-6" id="fmcg-desc">
-            依靠极致的供应链、每日优惠券裂变、联名IP快速引流，抢占大众“提神醒脑”的高频刚需心智，追求规模化与快速动销。
+            依靠极致的供应链、每日优惠券裂变、联名IP快速引流，抢占大众‘提神醒脑’的高频刚需心智，追求规模化与快速动销。
           </p>
         </div>
         <div class="border-t pt-4 border-brand-border/60 space-y-1.5 text-[11px] text-brand-muted font-mono">
@@ -720,33 +718,6 @@
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ==================== PORTFOLIO / MOCK PITCH SECTION ==================== -->
-  <section id="portfolio" class="py-16 px-6 max-w-7xl mx-auto border-t border-brand-border">
-    <div class="bg-brand-dark text-white p-8 md:p-14 relative overflow-hidden">
-      <div class="max-w-2xl space-y-6 relative z-10">
-        <span class="text-xs uppercase tracking-widest text-brand-accent">Personal Portfolio / Mock Pitch</span>
-        <h2 class="font-serif text-3xl md:text-5xl font-normal leading-tight">
-          我的营销构想与实战 Proposal
-        </h2>
-        <p class="text-xs text-gray-300 font-light leading-relaxed">
-          这里收录了我针对喜茶、海蓝之谜、Le Labo 等品牌撰写的模拟营销提案（Mock Pitch），包含 Target Group 研究、情绪板（Moodboard）设计与 360 度社交传播推演。
-        </p>
-        <div class="pt-4 flex flex-wrap gap-4">
-          <button onclick="openProposalModal()" class="px-6 py-3 bg-brand-accent text-brand-dark text-xs uppercase tracking-widest font-semibold hover:bg-white transition-colors">
-            预览模拟营销 Proposal 方案 →
-          </button>
-          <a href="mailto:yourname@example.com" class="px-6 py-3 border border-white/30 text-xs uppercase tracking-widest hover:border-white transition-colors">
-            联系我 / 交流讨论
-          </a>
-        </div>
-      </div>
-
-      <div class="absolute right-4 bottom-0 opacity-10 font-serif text-8xl md:text-9xl pointer-events-none italic">
-        Aesthete
-      </div>
     </div>
   </section>
 
@@ -929,7 +900,7 @@
         '工艺与有形体验：Loewe 怎样用有机的材质语言重塑空间感？',
         '<div class="space-y-4 text-xs font-light text-gray-700 leading-relaxed">' +
           '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“在数字营销过载的时代，极致的线下触觉体验成为了奢品最稀缺的沟通媒介。”</p>' +
-          '<p><b>【美学视角】</b>Loewe 在米兰家具展及快闪空间中，放弃了传统奢品冰冷的金碧辉煌，改用皮革、编织、原木等充满自然纹理的有机材质。通过灯光与材质的触觉互动，将品牌‘百年手工艺’的 DNA 转化为触手可及的空间语言。</p>' +
+          '<p><b>【美学视角】</b>Loewe 在米兰家具展及快闪空间中，放弃了传统奢品冰冷的金碧辉煌，改用皮革,编织,原木等充满自然纹理的有机材质。通过灯光与材质的触觉互动，将品牌‘百年手工艺’的 DNA 转化为触手可及的空间语言。</p>' +
           '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
             '<a href="https://luxe.co/post/285602" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读华丽志原文报道 ↗</a>' +
             '<a href="https://www.loewe.com/" target="_blank" class="px-4 py-2 border border-brand-dark text-brand-dark text-[10px] uppercase tracking-widest hover:bg-brand-dark hover:text-white transition-colors">前往 Loewe 官方网站 ↗</a>' +
@@ -1152,20 +1123,6 @@
           '</div>' +
         '</div>',
         'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?auto=format&fit=crop&w=500&q=80'
-      );
-    }
-
-    function openProposalModal() {
-      openDetailModal(
-        '个人 Mock Pitch：喜茶 x 奢侈品香氛跨界提案',
-        '<div class="space-y-4 text-xs font-light text-gray-700 leading-relaxed">' +
-          '<p><b>【提案概述】</b>这是针对快消茶饮与高端沙龙香跨界的模拟营销方案。</p>' +
-          '<p><b>1. Target Group 分析：</b>锁定 22-30 岁追求生活质感的精致白领女性；<br>' +
-          '<b>2. 核心 Big Idea：</b>‘喝得见的东方香调’——将茶饮的嗅觉香气与香水的后调进行物理联名；<br>' +
-          '<b>3. 360 度传播推演：</b>小红书种草矩阵 + 线下气味主题快闪店 + 极简亚克力限定杯套设计。</p>' +
-          '<p class="p-2 bg-brand-bg border border-brand-border text-[10px] text-brand-muted">💡 面试官交流提示：完整版 15 页 PDF 包含 Moodboard 情绪板与预算分配表，欢迎邮件联系获取。</p>' +
-        '</div>',
-        ''
       );
     }
   </script>
