@@ -1,0 +1,32 @@
+name: Auto Update Marketing Intelligence
+
+on:
+  schedule:
+    # 每天 UTC 时间 0:00 (即北京时间早晨 8:00) 自动触发运行
+    - cron: '0 0 * * *'
+  # 支持在 GitHub 页面上手动点击运行按钮
+  workflow_dispatch:
+
+jobs:
+  build-and-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run Fetch Script
+        run: python update_news.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add index.html
+          git commit -m "Auto-update latest industry news [skip ci]" || exit 0
+          git push
