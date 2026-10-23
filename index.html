@@ -57,9 +57,9 @@
       background: #111111;
     }
 
-    /* Subtle Glassmorphism Header */
+    /* Subtle Glassmorphism Header (Sticky + Blur) */
     .glass-header {
-      background: rgba(251, 251, 249, 0.88);
+      background: rgba(251, 251, 249, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
@@ -94,7 +94,7 @@
 </head>
 <body class="bg-brand-bg text-brand-dark font-sans antialiased selection:bg-brand-dark selection:text-white">
 
-  <!-- ==================== HEADER / NAVIGATION ==================== -->
+  <!-- ==================== HEADER / NAVIGATION (Sticky + 毛玻璃) ==================== -->
   <header class="fixed top-0 left-0 right-0 z-50 glass-header border-b border-brand-border transition-all duration-300">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       
@@ -188,7 +188,7 @@
             
             <!-- Floating Tags -->
             <div class="absolute top-4 left-4 flex gap-2">
-              <span class="px-3 py-1 bg-white/90 backdrop-blur-md text-[10px] tracking-widest uppercase font-semibold text-brand-dark">
+              <span class="px-3 py-1 bg-white/95 backdrop-blur-md text-[10px] tracking-widest uppercase font-semibold text-brand-dark">
                 Luxury DNA
               </span>
               <span class="px-3 py-1 bg-black/60 backdrop-blur-md text-[10px] tracking-widest uppercase font-semibold text-white">
@@ -324,7 +324,7 @@
       </p>
     </div>
 
-    <!-- Featured Case Study Card (Split Left Image / Right Structure) -->
+    <!-- Featured Case Study Card -->
     <div class="content-card filter-item campaign luxury bg-brand-card border border-brand-border overflow-hidden mb-12">
       <div class="grid grid-cols-1 lg:grid-cols-12">
         
@@ -577,7 +577,7 @@
     </div>
   </section>
 
-  <!-- ==================== MODULE 5: DAILY SPARKS & COUNTERPOINT ==================== -->
+  <!-- ==================== MODULE 5: DAILY SPARKS ==================== -->
   <section id="sparks" class="py-16 px-6 max-w-7xl mx-auto border-t border-brand-border">
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-brand-border pb-4">
       <div>
@@ -589,7 +589,7 @@
       </p>
     </div>
 
-    <!-- Polaroid Style Interactive Sparks Carousel / Grid -->
+    <!-- Polaroid Style Interactive Sparks Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       
       <!-- Spark 1 -->
@@ -655,62 +655,66 @@
     </div>
   </section>
 
-  <!-- ==================== COUNTERPOINT LAB SECTION ==================== -->
+  <!-- ==================== INTERACTIVE COUNTERPOINT LAB (多品类实时切换) ==================== -->
   <section id="counterpoint" class="py-16 px-6 max-w-7xl mx-auto border-t border-brand-border bg-brand-champagne/30">
     <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
       <span class="text-xs font-serif italic text-brand-accent">Interactive Counterpoint Lab</span>
       <h2 class="font-serif text-3xl md:text-4xl font-normal">FMCG vs. Luxury 对照实验室</h2>
       <p class="text-xs text-brand-muted leading-relaxed">
-        点击切换不同营销维度，直观感受“快消高频效率”与“奢侈品极致溢价”的核心策略差异：
+        点击下方不同行业品类，直观对比快消品（高频效率）与奢侈品（溢价符号）在策略上的核心差异：
       </p>
-    </div>
 
-    <!-- Interactive Interactive Switcher Component -->
-    <div class="bg-brand-card border border-brand-border p-6 md:p-10 max-w-4xl mx-auto space-y-8">
-      
-      <!-- Dimension Tabs Buttons -->
-      <div class="flex flex-wrap gap-3 justify-center border-b border-brand-border pb-6" id="counterTabs">
-        <button onclick="switchDimension('price')" class="counter-btn px-4 py-2 border border-brand-dark text-xs uppercase tracking-widest bg-brand-dark text-white" data-dim="price">
-          定价与溢价逻辑
+      <!-- 品类切换按钮 (Tab Switcher) -->
+      <div class="flex justify-center gap-3 pt-4 flex-wrap">
+        <button onclick="switchCategory('coffee')" class="counter-tab px-5 py-2 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-dark text-white shadow-sm" data-target="coffee">
+          ☕ 咖啡与茶饮
         </button>
-        <button onclick="switchDimension('channel')" class="counter-btn px-4 py-2 border border-brand-border text-xs uppercase tracking-widest text-brand-muted hover:border-brand-dark hover:text-brand-dark" data-dim="channel">
-          渠道与触点
+        <button onclick="switchCategory('beauty')" class="counter-tab px-5 py-2 rounded-full text-xs font-mono tracking-wider transition-all bg-white text-gray-700 border border-brand-border hover:border-black" data-target="beauty">
+          ✨ 美妆与护肤
         </button>
-        <button onclick="switchDimension('story')" class="counter-btn px-4 py-2 border border-brand-border text-xs uppercase tracking-widest text-brand-muted hover:border-brand-dark hover:text-brand-dark" data-dim="story">
-          品牌叙事 (Storytelling)
-        </button>
-        <button onclick="switchDimension('customer')" class="counter-btn px-4 py-2 border border-brand-border text-xs uppercase tracking-widest text-brand-muted hover:border-brand-dark hover:text-brand-dark" data-dim="customer">
-          用户关系 (CRM)
+        <button onclick="switchCategory('fragrance')" class="counter-tab px-5 py-2 rounded-full text-xs font-mono tracking-wider transition-all bg-white text-gray-700 border border-brand-border hover:border-black" data-target="fragrance">
+          🕯️ 香氛与生活方式
         </button>
       </div>
+    </div>
 
-      <!-- Comparison Content Box -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch" id="counterContent">
-        
-        <!-- FMCG Side -->
-        <div class="p-6 bg-brand-bg border-l-2 border-blue-600 space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-semibold uppercase tracking-widest text-blue-600">FMCG 快消逻辑</span>
-            <i class="fa-solid fa-bolt text-xs text-blue-600"></i>
+    <!-- 动态对比卡片网格 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      
+      <!-- FMCG 卡片 -->
+      <div class="bg-brand-card p-8 border border-brand-border shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-[10px] font-mono uppercase tracking-widest bg-blue-50 text-blue-700 px-3 py-1">FMCG 快消逻辑</span>
+            <span class="text-xs text-brand-muted font-mono" id="fmcg-metric">核心：规模与周转</span>
           </div>
-          <h4 class="font-serif text-xl text-brand-dark" id="fmcgTitle">高频复购与性价比定位</h4>
-          <p class="text-xs text-brand-muted font-light leading-relaxed" id="fmcgDesc">
-            基于 COGS（销货成本）与边际效应定价，强调性价比、爆款促销与即时购买欲望触发。通过大规模生产降低成本。
+          <h3 class="text-xl font-serif font-normal mb-3 text-brand-dark" id="fmcg-title">高频复购与爆品矩阵 (如: 瑞幸 / 三顿半)</h3>
+          <p class="text-gray-600 text-xs leading-relaxed font-light mb-6" id="fmcg-desc">
+            依靠极致的供应链、每日优惠券裂变、联名IP快速引流，抢占大众“提神醒脑”的高频刚需心智，追求规模化与快速动销。
           </p>
         </div>
+        <div class="border-t pt-4 border-brand-border/60 space-y-1.5 text-[11px] text-brand-muted font-mono">
+          <div>🎯 目标人群：追求即时满足与高性价比的大众消费者</div>
+          <div>⚡ 核心指标：GMV, 动销率, 渠道铺货率</div>
+        </div>
+      </div>
 
-        <!-- Luxury Side -->
-        <div class="p-6 bg-brand-bg border-l-2 border-brand-accent space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-semibold uppercase tracking-widest text-brand-accent">Luxury 奢品逻辑</span>
-            <i class="fa-solid fa-crown text-xs text-brand-accent"></i>
+      <!-- Luxury 卡片 -->
+      <div class="bg-brand-card p-8 border border-brand-border shadow-sm border-l-4 border-l-brand-accent flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-[10px] font-mono uppercase tracking-widest bg-brand-accent/10 text-brand-accent px-3 py-1">Luxury 奢品逻辑</span>
+            <span class="text-xs text-brand-accent font-mono" id="luxury-metric">核心：圈层体验与溢价</span>
           </div>
-          <h4 class="font-serif text-xl text-brand-dark" id="luxuryTitle">情感溢价与稀缺性控制</h4>
-          <p class="text-xs text-brand-muted font-light leading-relaxed" id="luxuryDesc">
-            脱离单纯功能价值，基于品牌历史、工艺与身份象征定价。通过配货制度、配额限量与定期涨价强化“稀缺资产”属性。
+          <h3 class="text-xl font-serif font-normal mb-3 text-brand-dark" id="luxury-title">生活方式延伸与文化体验 (如: Ralph's Coffee / Dior Cafe)</h3>
+          <p class="text-gray-600 text-xs leading-relaxed font-light mb-6" id="luxury-desc">
+            咖啡本身并非主要盈利点，而是作为奢侈品品牌DNA的线下物理延伸，为VIC客户提供沉浸式社交场域与高端仪式感。
           </p>
         </div>
-
+        <div class="border-t pt-4 border-brand-border/60 space-y-1.5 text-[11px] text-brand-muted font-mono">
+          <div>🎯 目标人群：追求身份认同与圈层归属的高净值人群</div>
+          <div>⚡ 核心指标：品牌资产 (Brand Equity), VIC复购, 符号价值</div>
+        </div>
       </div>
 
     </div>
@@ -812,7 +816,6 @@
 
     // 2. Category Filter Handler
     function filterContent(category) {
-      // Update Tab CSS Active States
       const tabs = document.querySelectorAll('.tab-btn');
       tabs.forEach(tab => {
         if (tab.getAttribute('data-category') === category) {
@@ -824,7 +827,6 @@
         }
       });
 
-      // Filter Grid Items
       const cards = document.querySelectorAll('.content-card');
       cards.forEach(card => {
         if (category === 'all') {
@@ -839,51 +841,63 @@
       });
     }
 
-    // 3. Counterpoint Lab Dimension Switcher
-    const dimensions = {
-      price: {
-        fmcgTitle: "高频复购与性价比定位",
-        fmcgDesc: "基于 COGS（销货成本）与边际效应定价，强调性价比、爆款促销与即时购买欲望触发。通过大规模生产降低成本。",
-        luxuryTitle: "情感溢价与稀缺性控制",
-        luxuryDesc: "脱离单纯功能价值，基于品牌历史、工艺与身份象征定价。通过配货制度、配额限量与定期涨价强化“稀缺资产”属性。"
+    // 3. Counterpoint Lab Category Switcher (Coffee, Beauty, Fragrance)
+    const labData = {
+      coffee: {
+        fmcg: {
+          title: "高频复购与爆品矩阵 (如: 瑞幸 / 三顿半)",
+          desc: "依靠极致的供应链、每日优惠券裂变、联名IP快速引流，抢占大众‘提神醒脑’的高频刚需心智，追求规模化与快速动销。",
+          metric: "核心：规模与周转"
+        },
+        luxury: {
+          title: "生活方式延伸与文化体验 (如: Ralph's Coffee / Dior Cafe)",
+          desc: "咖啡本身并非主要盈利点，而是作为奢侈品品牌DNA的线下物理延伸，为VIC客户提供沉浸式社交场域与高端仪式感。",
+          metric: "核心：圈层体验与溢价"
+        }
       },
-      channel: {
-        fmcgTitle: "铺货广度与无缝购买 (Omnichannel)",
-        fmcgDesc: "追求极高的渠道渗透率：便利店、电商直播、外卖到家与超市货架，降低消费者的任何购买阻力。",
-        luxuryTitle: "选择性筛选与专属体验 (VIC Only)",
-        luxuryDesc: "严格限制销售渠道：品牌直营旗舰店、高端百货一楼与邀请制 VIP 线下包厢。刻意制造距离感与仪式感。"
+      beauty: {
+        fmcg: {
+          title: "成分功效与流量大促 (如: 完美日记 / 欧莱雅大众线)",
+          desc: "紧跟热门成分趋势（如早C晚A），依托直播矩阵与全网种草，实现高性价比的爆发式转化，主打高复购率。",
+          metric: "核心：流量转化与性价比"
+        },
+        luxury: {
+          title: "高定科技与稀缺修护 (如: 赫莲娜 / La Mer 海蓝之谜)",
+          desc: "强调极致的科研背书与稀有成分（如深海巨藻、黑白绷带非遗跨界），通过专柜仪式感服务和高客单价确立金字塔尖心智。",
+          metric: "核心：高定心智与VIC留存"
+        }
       },
-      story: {
-        fmcgTitle: "爆款功能与痛点解决",
-        fmcgDesc: "聚焦于产品卖点（如“成分、功效、性价比、潮流IP”），用接地气、高传播力的社交梗引起共鸣。",
-        luxuryTitle: "神话塑造与文化传承 (Mythology)",
-        luxuryDesc: "讲述创始人传奇、高定工坊手工沉淀与艺术跨界。不强调“实用功能”，而是卖对理想生活方式的向往。"
-      },
-      customer: {
-        fmcgTitle: "流量转化与私域裂变",
-        fmcgDesc: "依靠大规模 Seed 种草与优惠券引流，建立高频交易的会员积分体系，提升单个用户的 LTV（生命周期价值）。",
-        luxuryTitle: "专属 VIC 客户关系管理 (CRM)",
-        luxuryDesc: "对前 2% 顶尖客户提供一对一销售服务（Clientele），提供高定大秀门票、生日私人定制与闭门艺术展览。"
+      fragrance: {
+        fmcg: {
+          title: "大众情绪与高频赠礼 (如: 气味图书馆 / 观夏大众线)",
+          desc: "用具象的记忆场景触发猎奇情绪，通过亲民价格和轻量化包装满足快节奏消费，注重社交媒体的视觉扩散。",
+          metric: "核心：场景共鸣与高频消费"
+        },
+        luxury: {
+          title: "文本美学与东方高定香 (如: 观夏 To Summer / Le Labo)",
+          desc: "通过深度公众号文案叙事、独立沙龙调香、定制化标签与克制的线下门店陈列（VMD），构筑高客单的心智护城河。",
+          metric: "核心：故事叙事与精神溢价"
+        }
       }
     };
 
-    function switchDimension(key) {
-      // Update Buttons
-      const btns = document.querySelectorAll('.counter-btn');
-      btns.forEach(btn => {
-        if (btn.getAttribute('data-dim') === key) {
-          btn.className = "counter-btn px-4 py-2 border border-brand-dark text-xs uppercase tracking-widest bg-brand-dark text-white";
+    function switchCategory(category) {
+      document.querySelectorAll('.counter-tab').forEach(btn => {
+        if(btn.getAttribute('data-target') === category) {
+          btn.className = "counter-tab px-5 py-2 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-dark text-white shadow-sm";
         } else {
-          btn.className = "counter-btn px-4 py-2 border border-brand-border text-xs uppercase tracking-widest text-brand-muted hover:border-brand-dark hover:text-brand-dark";
+          btn.className = "counter-tab px-5 py-2 rounded-full text-xs font-mono tracking-wider transition-all bg-white text-gray-700 border border-brand-border hover:border-black";
         }
       });
 
-      // Update Text Content
-      const data = dimensions[key];
-      document.getElementById('fmcgTitle').innerText = data.fmcgTitle;
-      document.getElementById('fmcgDesc').innerText = data.fmcgDesc;
-      document.getElementById('luxuryTitle').innerText = data.luxuryTitle;
-      document.getElementById('luxuryDesc').innerText = data.luxuryDesc;
+      const data = labData[category];
+      document.getElementById('fmcg-title').innerText = data.fmcg.title;
+      document.getElementById('fmcg-desc').innerText = data.fmcg.desc;
+      document.getElementById('fmcg-metric').innerText = data.fmcg.metric;
+
+      document.getElementById('luxury-title').innerText = data.luxury.title;
+      document.getElementById('luxury-desc').innerText = data.luxury.desc;
+      document.getElementById('luxury-metric').innerText = data.luxury.metric;
     }
 
     // 4. Modal Reader Controls
