@@ -18,7 +18,7 @@ RSS_FEEDS = [
 ]
 
 def fetch_latest_news():
-    """抓取最新的 1 条行业新闻"""
+    """抓取最新的行业新闻"""
     for feed in RSS_FEEDS:
         try:
             req = urllib.request.Request(feed["url"], headers={'User-Agent': 'Mozilla/5.0'})
@@ -26,14 +26,12 @@ def fetch_latest_news():
                 xml_data = response.read()
                 root = ET.fromstring(xml_data)
                 
-                # 解析 RSS 频道中的第一篇文章
                 item = root.find('.//item')
                 if item is not None:
                     title = item.find('title').text if item.find('title') is not None else ""
                     link = item.find('link').text if item.find('link') is not None else ""
                     desc = item.find('description').text if item.find('description') is not None else ""
                     
-                    # 清理 description HTML 标签
                     clean_desc = re.sub('<[^<]+?>', '', desc)[:120] + "..."
                     
                     return {
@@ -47,7 +45,7 @@ def fetch_latest_news():
             print(f"抓取 {feed['source']} 失败: {e}")
             continue
             
-    # 如果抓取失败的备用填充数据
+    # 备用填充数据
     return {
         "title": "全球奢侈品集团加码美妆与香氛赛道",
         "link": "https://www.businessoffashion.com/",
@@ -57,7 +55,7 @@ def fetch_latest_news():
     }
 
 def update_index_html(news):
-    """自动将抓取的最新资讯写入 index.html 中"""
+    """自动将抓取的最新资讯写入 index.html 的两个锚点中"""
     html_path = "index.html"
     if not os.path.exists(html_path):
         print("未找到 index.html 文件！")
@@ -66,10 +64,8 @@ def update_index_html(news):
     with open(html_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # 替换每日灵感/最新资讯卡片的标题与链接
-    # 标注匹配点
-    pattern = r'(<!-- AUTO-UPDATE-START -->)(.*?)(<!-- AUTO-UPDATE-END -->)'
-    
+    # 1. 更新每日灵感卡片锚点
+    spark_pattern = r'(<!-- AUTO-UPDATE-START -->)(.*?)(<!-- AUTO-UPDATE-END -->)'
     new_card_html = f'''<!-- AUTO-UPDATE-START -->
       <a href="{news['link']}" target="_blank" class="block polaroid-card bg-white p-4 border border-brand-border space-y-3 shadow-sm">
         <div class="h-48 bg-gray-100 overflow-hidden relative">
@@ -81,18 +77,42 @@ def update_index_html(news):
           <p class="text-xs text-brand-dark font-medium line-clamp-2">“{news['title']}”</p>
         </div>
         <div class="text-[10px] text-brand-muted border-t border-brand-border pt-2">
-          {news['desc']}
+          {news['source']} 实时速递 ↗
         </div>
       </a>
       <!-- AUTO-UPDATE-END -->'''
 
-    if re.search(pattern, content, flags=re.DOTALL):
-        updated_content = re.sub(pattern, new_card_html, content, flags=re.DOTALL)
+    # 2. 更新对照实验室的每日动态对标锚点
+    lab_pattern = r'(<!-- LAB-UPDATE-START -->)(.*?)(<!-- LAB-UPDATE-END -->)'
+    new_lab_html = f'''<!-- LAB-UPDATE-START -->
+    <div class="mb-8 p-6 bg-white border border-brand-accent shadow-sm">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-[10px] font-mono uppercase tracking-widest bg-brand-accent/20 text-brand-dark px-3 py-1 font-semibold">🔥 今日实时自动对标速递 ({news['source']})</span>
+        <span class="text-xs text-brand-accent font-mono">AI 动态抓取</span>
+      </div>
+      <h3 class="text-lg font-serif font-normal mb-2 text-brand-dark">“{news['title']}”</h3>
+      <p class="text-gray-600 text-xs leading-relaxed font-light mb-4">{news['desc']}</p>
+      <a href="{news['link']}" target="_blank" class="text-xs uppercase tracking-widest font-semibold text-brand-dark hover:text-brand-accent underline">
+        阅读 {news['source']} 原文深度报道 ↗
+      </a>
+    </div>
+    <!-- LAB-UPDATE-END -->'''
+
+    updated = False
+    if re.search(spark_pattern, content, flags=re.DOTALL):
+        content = re.sub(spark_pattern, new_card_html, content, flags=re.DOTALL)
+        updated = True
+
+    if re.search(lab_pattern, content, flags=re.DOTALL):
+        content = re.sub(lab_pattern, new_lab_html, content, flags=re.DOTALL)
+        updated = True
+
+    if updated:
         with open(html_path, "w", encoding="utf-8") as f:
-            f.write(updated_content)
-        print("Successfully updated index.html with latest news!")
+            f.write(content)
+        print("Successfully updated index.html with latest news and lab insights!")
     else:
-        print("未在 index.html 中找到 <!-- AUTO-UPDATE-START --> 锚点标记。")
+        print("未在 index.html 中找到对应的更新锚点标记。")
 
 if __name__ == "__main__":
     latest_news = fetch_latest_news()
