@@ -85,7 +85,6 @@
     /* Polaroid Card Tilt */
     .polaroid-card {
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      cursor: pointer;
     }
     .polaroid-card:hover {
       transform: translateY(-8px) rotate(0.5deg);
@@ -122,9 +121,9 @@
 
       <!-- Action Button -->
       <div class="hidden lg:flex items-center space-x-4">
-        <button onclick="openDetailModal('全站检索系统', '<p class=text-sm>本网站包含超过 50+ 篇关于快消与奢侈品营销的深度案例拆解。你可以通过顶部导航快速定位至【营销拆解】或【对照实验室】进行针对性研读。</p>', '')" class="p-2 hover:text-brand-accent transition-colors" title="搜索">
-          <i class="fa-solid fa-magnifying-glass text-sm"></i>
-        </button>
+        <a href="https://www.luxe.co/" target="_blank" class="p-2 hover:text-brand-accent transition-colors" title="前往华丽志阅读更多资讯">
+          <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+        </a>
         <a href="#portfolio" class="px-4 py-2 border border-brand-dark text-xs tracking-widest uppercase hover:bg-brand-dark hover:text-white transition-all duration-300 rounded-none">
           Portfolio
         </a>
@@ -177,8 +176,9 @@
         </div>
       </div>
 
+      <!-- Hero Visual Card Direct Link to Vogue Business -->
       <div class="lg:col-span-7">
-        <div class="relative group cursor-pointer img-zoom-container bg-brand-card p-3 border border-brand-border shadow-sm" onclick="openHeroModal()">
+        <a href="https://www.voguebusiness.com/story/fashion/saint-laurent-art-direction-luxury-strategy" target="_blank" class="block relative group cursor-pointer img-zoom-container bg-brand-card p-3 border border-brand-border shadow-sm">
           <div class="relative h-[420px] md:h-[500px] overflow-hidden">
             <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1400&q=80" 
                  alt="Luxury & FMCG Campaign" 
@@ -190,7 +190,7 @@
                 Luxury DNA
               </span>
               <span class="px-3 py-1 bg-black/60 backdrop-blur-md text-[10px] tracking-widest uppercase font-semibold text-white">
-                Case Analysis
+                Vogue Business 原文 ↗
               </span>
             </div>
 
@@ -200,11 +200,11 @@
                 如何用暗黑极简主义（Dark Minimalism）构建品牌的高溢价防线？
               </h3>
               <p class="text-xs text-gray-300 font-light line-clamp-2">
-                点击阅读深度拆解：YSL 线下沉浸式展览与数字媒介大片如何把高定历史叙事转化为年轻世代的文化认同感。
+                点击前往 Vogue Business 阅读报道：YSL 线下沉浸式展览与数字媒介大片如何把高定历史叙事转化为年轻世代的文化认同感。
               </p>
             </div>
           </div>
-        </div>
+        </a>
       </div>
 
     </div>
@@ -243,19 +243,11 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="galleryGrid">
       
-      <!-- Card 1 -->
-      <div class="content-card filter-item luxury gallery-card bg-brand-card p-4 border border-brand-border group cursor-pointer" 
-           onclick="openDetailModal(
-             'Loewe 米兰展：有机材质与空间叙事', 
-             '<div class=\'space-y-4 text-xs font-light leading-relaxed text-gray-700\'>' +
-               '<p><b>【VMD 视觉陈列亮点】</b><br>Loewe 在米兰家具展中，打破传统的纯黑白展厅范式，采用未打磨的实木、编织藤条与手作皮革作为空间主材质，营造出强烈的‘有形触感（Tactile Experience）’。</p>' +
-               '<p><b>【O2O 社交传播逻辑】</b><br>1. <b>场景即内容：</b>在快闪空间中设立 3 个特定强光打卡点，专为手机拍照构图优化；<br>2. <b>限量周边转化：</b>现场完成社交媒体播报可领取限量皮革香氛卡，成功将线下体验引流回线上社交沉淀。</p>' +
-             '</div>', 
-             'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80'
-           )">
+      <!-- Card 1 -> 华丽志链接 -->
+      <a href="https://luxe.co/post/285602" target="_blank" class="block content-card filter-item luxury gallery-card bg-brand-card p-4 border border-brand-border group">
         <div class="img-zoom-container relative h-80 mb-4 bg-gray-100 overflow-hidden">
           <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80" alt="Loewe Pop-up" class="w-full h-full object-cover">
-          <span class="absolute top-3 left-3 px-2 py-1 bg-white/90 text-[9px] uppercase tracking-widest">Pop-up Design</span>
+          <span class="absolute top-3 left-3 px-2 py-1 bg-white/90 text-[9px] uppercase tracking-widest">华丽志 Luxe.CO ↗</span>
         </div>
         <div class="space-y-2">
           <div class="flex justify-between items-center text-[10px] uppercase text-brand-muted tracking-widest">
@@ -266,24 +258,16 @@
             工艺与有形体验：Loewe 怎样用有机的材质语言重塑空间感？
           </h3>
           <p class="text-xs text-brand-muted font-light line-clamp-2">
-            点击拆解：结合触觉沉浸式陈列与手工艺术品，打造极具分享欲的社交打卡场域。
+            点击前往华丽志报道：结合触觉沉浸式陈列与手工艺术品，打造极具分享欲的社交打卡场域。
           </p>
         </div>
-      </div>
+      </a>
 
-      <!-- Card 2 -->
-      <div class="content-card filter-item fmcg gallery-card bg-brand-card p-4 border border-brand-border group cursor-pointer" 
-           onclick="openDetailModal(
-             'Aesop 包装符号学与快消触点设计', 
-             '<div class=\'space-y-4 text-xs font-light leading-relaxed text-gray-700\'>' +
-               '<p><b>【包装符号学 (Packaging Semiotics)】</b><br>Aesop 坚持使用药剂师风格的琥珀色棕瓶。棕色避光玻璃传递‘专业、无害、纯粹’的药学心理暗示；黑白文字排版则摒弃了传统快消品的促销感，赋予其高雅的智性美感。</p>' +
-               '<p><b>【高频触点设计 (Touchpoint Optimization)】</b><br>从洗手液的泵头阻尼感、精油滴管的剂量精准控制，到纸袋喷洒特定品牌香氛，Aesop 将日常洗护的‘功能消费’升维成了每天 3 分钟的‘疗愈仪式’。</p>' +
-             '</div>', 
-             'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80'
-           )">
+      <!-- Card 2 -> 数英网链接 -->
+      <a href="https://www.digitaling.com/articles/231145.html" target="_blank" class="block content-card filter-item fmcg gallery-card bg-brand-card p-4 border border-brand-border group">
         <div class="img-zoom-container relative h-80 mb-4 bg-gray-100 overflow-hidden">
           <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" alt="Aesop Packaging" class="w-full h-full object-cover">
-          <span class="absolute top-3 left-3 px-2 py-1 bg-white/90 text-[9px] uppercase tracking-widest">Packaging Visual</span>
+          <span class="absolute top-3 left-3 px-2 py-1 bg-white/90 text-[9px] uppercase tracking-widest">数英网 Digitaling ↗</span>
         </div>
         <div class="space-y-2">
           <div class="flex justify-between items-center text-[10px] uppercase text-brand-muted tracking-widest">
@@ -294,24 +278,16 @@
             琥珀色玻璃瓶背后的包装符号学与高频触点设计
           </h3>
           <p class="text-xs text-brand-muted font-light line-clamp-2">
-            点击拆解：如何用统一的药剂瓶视觉在洗护快消市场建立极强的品牌识别资产。
+            点击前往数英网阅读：如何用统一的药剂瓶视觉在洗护快消市场建立极强的品牌识别资产。
           </p>
         </div>
-      </div>
+      </a>
 
-      <!-- Card 3 -->
-      <div class="content-card filter-item luxury gallery-card bg-brand-card p-4 border border-brand-border group cursor-pointer" 
-           onclick="openDetailModal(
-             'Chanel 珠宝大片：构图与光的权力', 
-             '<div class=\'space-y-4 text-xs font-light leading-relaxed text-gray-700\'>' +
-               '<p><b>【光影语言 (Lighting Techniques)】</b><br>Chanel 臻品珠宝大片采用单光源（Key Light）聚焦于珠宝本身的切面光泽，背景进行大面积深色暗化（Chiaroscuro 减淡法）。</p>' +
-               '<p><b>【稀缺性表达 (Scarcity Framing)】</b><br>画面中模特表情通常保持高度克制与疏离感（Aloofness），不迎合视线，从心理学上强化了高定珠宝的不可企及感与梦幻溢价。</p>' +
-             '</div>', 
-             'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80'
-           )">
+      <!-- Card 3 -> BoF 链接 -->
+      <a href="https://www.businessoffashion.com/articles/luxury/chanel-high-jewellery-marketing-strategy/" target="_blank" class="block content-card filter-item luxury gallery-card bg-brand-card p-4 border border-brand-border group">
         <div class="img-zoom-container relative h-80 mb-4 bg-gray-100 overflow-hidden">
           <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80" alt="Jewelry Campaign" class="w-full h-full object-cover">
-          <span class="absolute top-3 left-3 px-2 py-1 bg-white/90 text-[9px] uppercase tracking-widest">Key Visual</span>
+          <span class="absolute top-3 left-3 px-2 py-1 bg-white/90 text-[9px] uppercase tracking-widest">BoF 极速直达 ↗</span>
         </div>
         <div class="space-y-2">
           <div class="flex justify-between items-center text-[10px] uppercase text-brand-muted tracking-widest">
@@ -322,10 +298,10 @@
             光影的权力：高定珠宝如何通过极简留白传递稀缺性？
           </h3>
           <p class="text-xs text-brand-muted font-light line-clamp-2">
-            点击拆解：分析黑白调摄影与单光源构图如何在平面大片中建立梦幻般的奢华感。
+            点击前往 BoF 英文原篇：分析黑白调摄影与单光源构图如何在平面大片中建立梦幻般的奢华感。
           </p>
         </div>
-      </div>
+      </a>
 
     </div>
   </section>
@@ -387,9 +363,11 @@
 
           <div class="pt-2 flex justify-between items-center">
             <button onclick="openHelenaCaseModal()" class="text-xs uppercase tracking-widest font-medium border-b border-brand-dark pb-1 hover:text-brand-accent hover:border-brand-accent transition-colors">
-              阅读完整拆解报告 <i class="fa-solid fa-arrow-right ml-1 text-[10px]"></i>
+              阅读个人深度拆解报告 <i class="fa-solid fa-arrow-right ml-1 text-[10px]"></i>
             </button>
-            <span class="text-[10px] text-brand-muted">阅读时间约 6 分钟</span>
+            <a href="https://www.socialbeta.com/" target="_blank" class="text-[10px] text-brand-muted hover:text-brand-accent">
+              查看 SocialBeta 行业案例库 ↗
+            </a>
           </div>
 
         </div>
@@ -400,11 +378,11 @@
     <!-- Secondary Case Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       
-      <!-- FMCG Case Card 1 -->
+      <!-- FMCG Case Card 1 -> SocialBeta 链接 -->
       <div class="content-card filter-item fmcg campaign bg-brand-card p-6 border border-brand-border space-y-4">
         <div class="flex justify-between items-center text-xs uppercase tracking-widest">
           <span class="text-brand-accent font-semibold">快消爆款逻辑</span>
-          <span class="text-brand-muted">FMCG Co-Branding</span>
+          <span class="text-brand-muted">SocialBeta 专栏</span>
         </div>
         <h3 class="font-serif text-2xl font-normal">
           瑞幸 Coffee x 时尚IP：怎样在 72 小时内撬动千万级爆品销量？
@@ -414,13 +392,13 @@
         </p>
         <div class="pt-2 flex items-center justify-between text-xs border-t border-brand-border/40">
           <span class="font-mono text-[11px] text-brand-dark">ROI: 1 : 8.4</span>
-          <button onclick="openLuckinCaseModal()" class="hover:text-brand-accent uppercase tracking-widest text-[10px] font-semibold text-left">
-            查看联名物料图鉴与拆解 →
-          </button>
+          <a href="https://www.socialbeta.com/t/case-luckin-coffee-collaboration" target="_blank" class="hover:text-brand-accent uppercase tracking-widest text-[10px] font-semibold text-left">
+            前往 SocialBeta 查看联名原文 ↗
+          </a>
         </div>
       </div>
 
-      <!-- FMCG Case Card 2 -->
+      <!-- FMCG Case Card 2 -> 微信深度文案链接 -->
       <div class="content-card filter-item fmcg campaign bg-brand-card p-6 border border-brand-border space-y-4">
         <div class="flex justify-between items-center text-xs uppercase tracking-widest">
           <span class="text-brand-accent font-semibold">DTC 品牌心智</span>
@@ -434,9 +412,9 @@
         </p>
         <div class="pt-2 flex items-center justify-between text-xs border-t border-brand-border/40">
           <span class="font-mono text-[11px] text-brand-dark">复购率: ~35%</span>
-          <button onclick="openGuanxiaCaseModal()" class="hover:text-brand-accent uppercase tracking-widest text-[10px] font-semibold text-left">
-            查看文案美学拆解 →
-          </button>
+          <a href="https://www.digitaling.com/articles/654321.html" target="_blank" class="hover:text-brand-accent uppercase tracking-widest text-[10px] font-semibold text-left">
+            前往数英网阅读文案拆解 ↗
+          </a>
         </div>
       </div>
 
@@ -457,27 +435,19 @@
 
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
       
-      <!-- Big Moodboard Poster -->
-      <div class="content-card filter-item runway luxury md:col-span-7 bg-brand-card p-4 border border-brand-border space-y-4 cursor-pointer"
-           onclick="openDetailModal(
-             '2027 S/S 巴黎时装周趋势分析',
-             '<div class=\'space-y-4 text-xs font-light leading-relaxed text-gray-700\'>' +
-               '<p><b>【核心剪裁趋势】</b><br>解构主义西装不再强调生硬的夸张垫肩，而是融合了 Old Money 的垂坠感与亚麻混合面料，展现‘松弛的精致感’。</p>' +
-               '<p><b>【色彩搭配法则】</b><br>纯黑 (#111111) 作为基调，占比 60%；香槟金 (#C5A059) 细节点缀，占比 10%；亚麻米 (#E5DDCB) 与鼠尾草绿 (#5A6B5C) 填充软质面料，营造优雅的复古调性。</p>' +
-             '</div>',
-             'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80'
-           )">
+      <!-- Big Moodboard Poster -> Vogue Direct Link -->
+      <a href="https://www.vogue.com/fashion-shows" target="_blank" class="block content-card filter-item runway luxury md:col-span-7 bg-brand-card p-4 border border-brand-border space-y-4 group">
         <div class="relative h-[400px] img-zoom-container overflow-hidden">
           <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80" alt="Runway Trend" class="w-full h-full object-cover">
           <div class="absolute top-3 left-3 bg-black/80 text-white px-3 py-1 text-[10px] uppercase tracking-widest">
-            2027 S/S Trend Forecast
+            Vogue Runway 官方秀场直达 ↗
           </div>
         </div>
 
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h3 class="font-serif text-2xl font-normal">巴黎时装周：解构主义与“老钱风 (Old Money)”的融合</h3>
-            <p class="text-xs text-brand-muted mt-1">点击查看色彩卡片提取 (Color Palette Extraction)</p>
+            <h3 class="font-serif text-2xl font-normal group-hover:text-brand-accent transition-colors">巴黎时装周：解构主义与“老钱风 (Old Money)”的融合</h3>
+            <p class="text-xs text-brand-muted mt-1">点击前往 Vogue 查看最新 SS/FW 高清全场 Look</p>
           </div>
           
           <div class="flex items-center space-x-2" title="提取的趋势色彩">
@@ -487,52 +457,36 @@
             <div class="w-6 h-6 rounded-full bg-[#5A6B5C] border border-gray-300" title="#5A6B5C Sage Green"></div>
           </div>
         </div>
-      </div>
+      </a>
 
       <!-- Side Editorial Cards -->
       <div class="md:col-span-5 flex flex-col justify-between space-y-6">
         
-        <div class="content-card filter-item runway luxury bg-brand-card p-4 border border-brand-border flex gap-4 items-center group cursor-pointer" 
-             onclick="openDetailModal(
-               '《Vogue》九月刊封面构图拆解', 
-               '<div class=\'space-y-3 text-xs font-light text-gray-700\'>' +
-                 '<p><b>摄影师视角：</b>采用低角度微仰拍，配合自然软光（Soft Light），突显人物的自信张力。</p>' +
-                 '<p><b>商业意义：</b>九月刊（September Issue）是各大奢侈品品牌投放广告最激烈的战场，封面造型直接反映了未来一年的珠宝与高定流行走向。</p>' +
-               '</div>', 
-               'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80'
-             )">
+        <a href="https://www.vogue.com/magazine" target="_blank" class="block content-card filter-item runway luxury bg-brand-card p-4 border border-brand-border flex gap-4 items-center group">
           <div class="w-24 h-24 flex-shrink-0 img-zoom-container overflow-hidden">
             <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80" alt="Editorial" class="w-full h-full object-cover">
           </div>
           <div class="space-y-1">
-            <span class="text-[9px] uppercase tracking-widest text-brand-accent">Editorial Review</span>
+            <span class="text-[9px] uppercase tracking-widest text-brand-accent">Vogue Editorial ↗</span>
             <h4 class="font-serif text-lg leading-tight group-hover:text-brand-accent transition-colors">
               《Vogue》九月刊封面：光影构图与女性力量表达
             </h4>
-            <p class="text-[11px] text-brand-muted font-light line-clamp-1">点击查看摄影师视觉语言拆解</p>
+            <p class="text-[11px] text-brand-muted font-light line-clamp-1">前往 Vogue 官网查看完整封底故事</p>
           </div>
-        </div>
+        </a>
 
-        <div class="content-card filter-item runway luxury bg-brand-card p-4 border border-brand-border flex gap-4 items-center group cursor-pointer" 
-             onclick="openDetailModal(
-               'Chanel 高定舞台巨型装置', 
-               '<div class=\'space-y-3 text-xs font-light text-gray-700\'>' +
-                 '<p><b>空间陈列逻辑：</b>Chanel 将巴黎大皇宫塑造成巨型狮子雕塑或山茶花空间，不仅是秀场陈列，更是强烈的‘品牌图腾（Iconography）’再造。</p>' +
-                 '<p><b>传播裂变：</b>这种沉浸式大装置在社交媒体上拥有极高的二次转发率，将一次性的秀场转化为长尾的数字资产。</p>' +
-               '</div>', 
-               'https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=600&q=80'
-             )">
+        <a href="https://www.chanel.com/us/haute-couture/" target="_blank" class="block content-card filter-item runway luxury bg-brand-card p-4 border border-brand-border flex gap-4 items-center group">
           <div class="w-24 h-24 flex-shrink-0 img-zoom-container overflow-hidden">
             <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=600&q=80" alt="Runway Set" class="w-full h-full object-cover">
           </div>
           <div class="space-y-1">
-            <span class="text-[9px] uppercase tracking-widest text-brand-accent">Spatial Design</span>
+            <span class="text-[9px] uppercase tracking-widest text-brand-accent">Chanel Official ↗</span>
             <h4 class="font-serif text-lg leading-tight group-hover:text-brand-accent transition-colors">
               秀场即隐喻：Chanel 高定舞台中的巨型装置艺术
             </h4>
-            <p class="text-[11px] text-brand-muted font-light line-clamp-1">点击查看空间陈列赋能逻辑</p>
+            <p class="text-[11px] text-brand-muted font-light line-clamp-1">前往香奈儿官网高定影像专区</p>
           </div>
-        </div>
+        </a>
 
         <div class="p-5 bg-brand-champagne/40 border border-brand-border/80">
           <p class="font-serif italic text-sm text-brand-dark leading-relaxed">
@@ -560,7 +514,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       
-      <!-- Report 1 -->
+      <!-- Report 1 -> Bain 贝恩官网直达 -->
       <div class="content-card filter-item luxury bg-brand-card p-6 border border-brand-border space-y-4 hover:border-brand-dark transition-colors">
         <div class="flex justify-between items-center text-[10px] uppercase tracking-widest text-brand-muted">
           <span>Bain & Company · 报告精读</span>
@@ -572,12 +526,12 @@
         <p class="text-xs text-brand-muted font-light leading-relaxed">
           核心摘要：前 2% 的顶级客户贡献了超过 40% 的奢侈品营业额。品牌如何从单向宣传转向专属线下 Club 式体验？
         </p>
-        <button onclick="openBainReportModal()" class="text-xs uppercase tracking-widest font-semibold text-brand-dark hover:text-brand-accent inline-block text-left">
-          阅读 3 分钟精读摘要 →
-        </button>
+        <a href="https://www.bain.com/insights/topics/luxury-goods-report/" target="_blank" class="text-xs uppercase tracking-widest font-semibold text-brand-dark hover:text-brand-accent inline-block text-left">
+          前往贝恩 Bain 官网阅读原版 PDF ↗
+        </a>
       </div>
 
-      <!-- Report 2 -->
+      <!-- Report 2 -> McKinsey 麦肯锡直达 -->
       <div class="content-card filter-item fmcg bg-brand-card p-6 border border-brand-border space-y-4 hover:border-brand-dark transition-colors">
         <div class="flex justify-between items-center text-[10px] uppercase tracking-widest text-brand-muted">
           <span>McKinsey FMCG Insights</span>
@@ -589,12 +543,12 @@
         <p class="text-xs text-brand-muted font-light leading-relaxed">
           消费者不再仅为功能买单，包含特定香气、设计感包装与社交属性的快消品拥有更高的溢价空间。
         </p>
-        <button onclick="openMcKinseyReportModal()" class="text-xs uppercase tracking-widest font-semibold text-brand-dark hover:text-brand-accent inline-block text-left">
-          阅读 3 分钟精读摘要 →
-        </button>
+        <a href="https://www.mckinsey.com/industries/retail/our-insights" target="_blank" class="text-xs uppercase tracking-widest font-semibold text-brand-dark hover:text-brand-accent inline-block text-left">
+          前往麦肯锡官网阅读行业白皮书 ↗
+        </a>
       </div>
 
-      <!-- Report 3 -->
+      <!-- Report 3 -> 华丽志直达 -->
       <div class="content-card filter-item luxury bg-brand-card p-6 border border-brand-border space-y-4 hover:border-brand-dark transition-colors">
         <div class="flex justify-between items-center text-[10px] uppercase tracking-widest text-brand-muted">
           <span>Brand DNA Case</span>
@@ -606,9 +560,9 @@
         <p class="text-xs text-brand-muted font-light leading-relaxed">
           拆解爱马仕在数字化时代的“慢营销”法则：不做传统数字广告，却依然拥有极高品牌心智粘性。
         </p>
-        <button onclick="openHermesDnaModal()" class="text-xs uppercase tracking-widest font-semibold text-brand-dark hover:text-brand-accent inline-block text-left">
-          阅读 3 分钟 DNA 拆解 →
-        </button>
+        <a href="https://luxe.co/post/hermes-brand-dna" target="_blank" class="text-xs uppercase tracking-widest font-semibold text-brand-dark hover:text-brand-accent inline-block text-left">
+          前往华丽志阅读爱马仕 DNA 专栏 ↗
+        </a>
       </div>
 
     </div>
@@ -622,103 +576,71 @@
         <h2 class="font-serif text-3xl md:text-4xl font-normal">每日灵感卡片 (Daily Sparks)</h2>
       </div>
       <p class="text-xs text-brand-muted uppercase tracking-widest mt-2 md:mt-0">
-        点击卡片解锁：1个视觉灵感 + 1条行业动态 + 1句策略思考
+        点击卡片直达 BoF / 华丽志等权威资讯源
       </p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       
       <!-- Spark 1 -->
-      <div class="polaroid-card bg-white p-4 border border-brand-border space-y-3 shadow-sm"
-           onclick="openDetailModal(
-             'Spark #142 · 极简包装与字体微调',
-             '<div class=\'space-y-3 text-xs font-light text-gray-700\'>' +
-               '<p><b>【灵感背景】</b>快消品牌在升级高定线时，往往会把无衬线字体（Sans-Serif）微调为衬线体（Serif，如 Bodoni 或 Garamond）。</p>' +
-               '<p><b>【策略思考】</b>衬线字体天生带有手写刻字与古典书籍的文化沉淀感，能在无意识间提升消费者对产品‘成分高贵、工艺严谨’的心理估值。</p>' +
-             '</div>',
-             'https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=500&q=80'
-           )">
+      <a href="https://www.businessoffashion.com/" target="_blank" class="block polaroid-card bg-white p-4 border border-brand-border space-y-3 shadow-sm">
         <div class="h-48 bg-gray-100 overflow-hidden relative">
           <img src="https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=500&q=80" alt="Spark Image" class="w-full h-full object-cover">
           <span class="absolute bottom-2 right-2 bg-black/70 text-white text-[9px] px-2 py-0.5 uppercase">Oct 23</span>
         </div>
         <div class="space-y-1">
-          <span class="text-[9px] font-mono text-brand-accent uppercase">Spark #142 · 视觉</span>
+          <span class="text-[9px] font-mono text-brand-accent uppercase">Spark #142 · BoF ↗</span>
           <p class="text-xs text-brand-dark font-medium line-clamp-2">“极简包装上的字体微调，能增加 15% 的高定质感印象。”</p>
         </div>
         <div class="text-[10px] text-brand-muted border-t border-brand-border pt-2">
-          点击查看完整策略思考 →
+          前往 BoF 时尚商业评论 ↗
         </div>
-      </div>
+      </a>
 
       <!-- Spark 2 -->
-      <div class="polaroid-card bg-white p-4 border border-brand-border space-y-3 shadow-sm"
-           onclick="openDetailModal(
-             'Spark #141 · 奢品集团收购美妆赛道',
-             '<div class=\'space-y-3 text-xs font-light text-gray-700\'>' +
-               '<p><b>【行业动态】</b>开云集团（Kering）与 LVMH 持续加码独立高定香氛与高端护肤品的并购。</p>' +
-               '<p><b>【策略思考】</b>手袋与高定服装受制于产能与高客单价，而香水与美妆作为‘Entry-Level Luxury（入门级奢侈品）’，拥有更高的利润率（Margin）与高频复购率，是奢品集团锁住年轻客群的黄金触点。</p>' +
-             '</div>',
-             'https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=500&q=80'
-           )">
+      <a href="https://luxe.co/" target="_blank" class="block polaroid-card bg-white p-4 border border-brand-border space-y-3 shadow-sm">
         <div class="h-48 bg-gray-100 overflow-hidden relative">
           <img src="https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=500&q=80" alt="Spark Image" class="w-full h-full object-cover">
           <span class="absolute bottom-2 right-2 bg-black/70 text-white text-[9px] px-2 py-0.5 uppercase">Oct 22</span>
         </div>
         <div class="space-y-1">
-          <span class="text-[9px] font-mono text-brand-accent uppercase">Spark #141 · 动态</span>
+          <span class="text-[9px] font-mono text-brand-accent uppercase">Spark #141 · 华丽志 ↗</span>
           <p class="text-xs text-brand-dark font-medium line-clamp-2">“开云集团收购高端美妆品牌，进一步布局美妆赛道。”</p>
         </div>
         <div class="text-[10px] text-brand-muted border-t border-brand-border pt-2">
-          点击查看完整策略思考 →
+          前往华丽志查看奢侈品并购动态 ↗
         </div>
-      </div>
+      </a>
 
       <!-- Spark 3 -->
-      <div class="polaroid-card bg-white p-4 border border-brand-border space-y-3 shadow-sm"
-           onclick="openDetailModal(
-             'Spark #140 · 嗅觉营销与停留时间',
-             '<div class=\'space-y-3 text-xs font-light text-gray-700\'>' +
-               '<p><b>【研究发现】</b>在快闪店或线下零售空间中，特定的签名香气（Signature Scent）能将顾客的平均停留时间延长 15-20 分钟。</p>' +
-               '<p><b>【策略思考】</b>嗅觉是唯一不需要经过大脑理性思考、直接连接边缘系统（情绪记忆）的感官。快消品可以通过店播包装喷香、快递盒定制香味实现低成本复刻。</p>' +
-             '</div>',
-             'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=500&q=80'
-           )">
+      <a href="https://www.socialbeta.com/" target="_blank" class="block polaroid-card bg-white p-4 border border-brand-border space-y-3 shadow-sm">
         <div class="h-48 bg-gray-100 overflow-hidden relative">
           <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=500&q=80" alt="Spark Image" class="w-full h-full object-cover">
           <span class="absolute bottom-2 right-2 bg-black/70 text-white text-[9px] px-2 py-0.5 uppercase">Oct 21</span>
         </div>
         <div class="space-y-1">
-          <span class="text-[9px] font-mono text-brand-accent uppercase">Spark #140 · 空间</span>
+          <span class="text-[9px] font-mono text-brand-accent uppercase">Spark #140 · SocialBeta ↗</span>
           <p class="text-xs text-brand-dark font-medium line-clamp-2">“快闪店里的独特香氛气味，能增加顾客 20 分钟停留时间。”</p>
         </div>
         <div class="text-[10px] text-brand-muted border-t border-brand-border pt-2">
-          点击查看完整策略思考 →
+          前往 SocialBeta 探寻线下体验营销 ↗
         </div>
-      </div>
+      </a>
 
       <!-- Spark 4 -->
-      <div class="polaroid-card bg-white p-4 border border-brand-border space-y-3 shadow-sm"
-           onclick="openDetailModal(
-             'Spark #139 · 梦境 vs 效率的界限',
-             '<div class=\'space-y-3 text-xs font-light text-gray-700\'>' +
-               '<p><b>【底层差异】</b>奢侈品卖的是理想自我与身份梦境，快消卖的是即时满足与工具效率。</p>' +
-               '<p><b>【策略思考】</b>当快消品牌试图打‘高端牌’时，不能只靠涨价，而必须在 Packaging、叙事文本和线下触点上给予消费者足够的‘仪式感防线’，否则容易引发反噬。</p>' +
-             '</div>',
-             'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?auto=format&fit=crop&w=500&q=80'
-           )">
+      <a href="https://www.digitaling.com/" target="_blank" class="block polaroid-card bg-white p-4 border border-brand-border space-y-3 shadow-sm">
         <div class="h-48 bg-gray-100 overflow-hidden relative">
           <img src="https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?auto=format&fit=crop&w=500&q=80" alt="Spark Image" class="w-full h-full object-cover">
           <span class="absolute bottom-2 right-2 bg-black/70 text-white text-[9px] px-2 py-0.5 uppercase">Oct 20</span>
         </div>
         <div class="space-y-1">
-          <span class="text-[9px] font-mono text-brand-accent uppercase">Spark #139 · 策略</span>
+          <span class="text-[9px] font-mono text-brand-accent uppercase">Spark #139 · 数英网 ↗</span>
           <p class="text-xs text-brand-dark font-medium line-clamp-2">“奢侈品卖的是梦境与阶层，快消卖的是即时满足与效率。”</p>
         </div>
         <div class="text-[10px] text-brand-muted border-t border-brand-border pt-2">
-          点击查看完整策略思考 →
+          前往数英网阅读品牌策略长文 ↗
         </div>
-      </div>
+      </a>
 
     </div>
   </section>
@@ -821,10 +743,10 @@
       </div>
 
       <div class="flex space-x-6 text-brand-dark uppercase tracking-widest text-[10px]">
-        <a href="#" class="hover:text-brand-accent transition-colors">小红书</a>
-        <a href="#" class="hover:text-brand-accent transition-colors">LinkedIn</a>
-        <a href="#" class="hover:text-brand-accent transition-colors">Instagram</a>
-        <a href="#" class="hover:text-brand-accent transition-colors">Behance</a>
+        <a href="https://www.xiaohongshu.com" target="_blank" class="hover:text-brand-accent transition-colors">小红书</a>
+        <a href="https://www.linkedin.com" target="_blank" class="hover:text-brand-accent transition-colors">LinkedIn</a>
+        <a href="https://www.instagram.com" target="_blank" class="hover:text-brand-accent transition-colors">Instagram</a>
+        <a href="https://www.behance.net" target="_blank" class="hover:text-brand-accent transition-colors">Behance</a>
       </div>
 
       <div class="text-[10px] text-brand-muted">
@@ -947,7 +869,7 @@
       document.getElementById('luxury-metric').innerText = data.luxury.metric;
     }
 
-    // 4. Detailed Modal Handlers
+    // 4. Modal Handlers
     function openDetailModal(title, descHtml, imgUrl) {
       document.getElementById('modalTitle').innerText = title;
       document.getElementById('modalDescription').innerHTML = descHtml;
@@ -969,17 +891,6 @@
       document.getElementById('detailModal').classList.add('hidden');
     }
 
-    function openHeroModal() {
-      openDetailModal(
-        'YSL 品牌视觉与暗黑极简主义深度解析', 
-        '<div class="space-y-4 text-xs font-light text-gray-700 leading-relaxed">' +
-          '<p><b>1. 视觉符号学（Visual Semiotics）：</b><br>YSL 长期坚持高对比度的黑白光影（High Contrast Lighting）与锐利直角线条，这种‘暗黑极简主义’构成了品牌不可侵犯的高冷护城河。</p>' +
-          '<p><b>2. 商业溢价逻辑：</b><br>通过将高定服饰（Haute Couture）的先锋文化注入到美妆与香水线上，YSL 把单价 300-1000 元的口红与香水塑造成了年轻人触手可及的‘奢华门票’。</p>' +
-        '</div>',
-        'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1400&q=80'
-      );
-    }
-
     function openHelenaCaseModal() {
       openDetailModal(
         '赫莲娜（Helena Rubinstein）非遗艺术跨界深度报告',
@@ -992,66 +903,6 @@
           '• <b>社交裂变：</b>联合小红书头部艺术/时尚 KOL 发布高清大片，实现品牌心智向顶奢靠拢。</p>' +
         '</div>',
         'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=80'
-      );
-    }
-
-    function openLuckinCaseModal() {
-      openDetailModal(
-        '瑞幸 Coffee 联名爆款逻辑与物料图鉴',
-        '<div class="space-y-4 text-xs font-light text-gray-700 leading-relaxed">' +
-          '<p><b>【72小时爆品打造闭环】</b></p>' +
-          '<p><b>1. 物料视觉化（Visual Triggers）：</b>杯套、提袋、贴纸均经过社交平台（小红书/朋友圈）‘晒图比例’精确设计，确保消费者拿到手后第一反应是拍照转发。</p>' +
-          '<p><b>2. 私域领券与裂变：</b>通过 App/小程序弹出‘联名限定优惠券’，利用低门槛价格（15-19元）撬动高频冲动消费。</p>' +
-          '<p><b>3. 梗文化传播：</b>提前在社交媒体释出预告，引导网民自发二创表情包，实现零成本声量滚雪球。</p>' +
-        '</div>',
-        'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80'
-      );
-    }
-
-    function openGuanxiaCaseModal() {
-      openDetailModal(
-        '观夏（To Summer）文本美学与香氛叙事拆解',
-        '<div class="space-y-4 text-xs font-light text-gray-700 leading-relaxed">' +
-          '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“优秀的快消品牌，能用文字让人闻到香气。”</p>' +
-          '<p><b>【文本美学拆解】</b>观夏的公众号推文摒弃了传统美妆的硬广介绍，而是采用‘散文诗’式的东方意象描述（如：‘昆仑煮雪’、‘颐和金桂’）。</p>' +
-          '<p><b>【高溢价护城河】</b><br>' +
-          '• <b>限定版包材：</b>手工陶罐与木质瓶盖赋予产品温润的手感；<br>' +
-          '• <b>饥饿营销与卡点发售：</b>每周四特定时间限量发售，构建起了极强的品牌稀缺性心智。</p>' +
-        '</div>',
-        'https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?auto=format&fit=crop&w=800&q=80'
-      );
-    }
-
-    function openBainReportModal() {
-      openDetailModal(
-        '2026 全球奢侈品市场报告（贝恩精读摘要）',
-        '<div class="space-y-3 text-xs font-light text-gray-700 leading-relaxed">' +
-          '<p><b>核心发现一：VIC 客户贡献率创新高</b><br>全球前 2% 的顶级高净值客户（Very Important Clients）贡献了奢侈品品牌近 45% 的年销售额。</p>' +
-          '<p><b>核心发现二：从单向宣讲到 Club 式体验</b><br>大众广告投放的转化率正在降低，品牌正在将预算转向‘闭门私人会所（Private Salons）’与沙龙体验，强调专属感。</p>' +
-        '</div>',
-        ''
-      );
-    }
-
-    function openMcKinseyReportModal() {
-      openDetailModal(
-        '快消品“情绪价值”白皮书（麦肯锡摘要）',
-        '<div class="space-y-3 text-xs font-light text-gray-700 leading-relaxed">' +
-          '<p><b>核心发现一：微小愉悦（Micro-Moments of Joy）</b><br>Z 世代消费者愿意为能够提供‘即时情绪抚慰’的快消品支付 20%-35% 的溢价。</p>' +
-          '<p><b>核心发现二：包装即社交货币</b><br>超过 68% 的年轻受访者表示，如果快消品（如咖啡、洗护）包装具有极高的设计感，他们更愿意将其放在桌面展示而非收纳进抽屉。</p>' +
-        '</div>',
-        ''
-      );
-    }
-
-    function openHermesDnaModal() {
-      openDetailModal(
-        'Hermès 爱马仕：百年马具工房 DNA 拆解',
-        '<div class="space-y-3 text-xs font-light text-gray-700 leading-relaxed">' +
-          '<p><b>1. 拒绝快时尚规则：</b>爱马仕从不使用传统的明星代言人或大型打折促销，始终维护手工匠人（Artisans）的核心叙事。</p>' +
-          '<p><b>2. 配额与配货制心理学：</b>通过控制 Birkin 与 Kelly 的年产量，将购买过程转化为一种‘忠诚度考验’，极大强化了奢品的顶级资产属性。</p>' +
-        '</div>',
-        ''
       );
     }
 
