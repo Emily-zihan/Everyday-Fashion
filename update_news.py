@@ -1,5 +1,6 @@
 import os
 import re
+import json
 import random
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -87,10 +88,9 @@ def extract_article_image(item):
     return None
 
 def classify_article(title, desc):
-    """根据文章标题和摘要自动判定其所属的分类标签类名"""
+    """根据文章标题和摘要自动判定其所属的分类标签类名，实现与顶部筛选栏的完美联动"""
     text = (title + " " + desc).lower()
     
-    # 关键词匹配规则
     luxury_keywords = ["奢品", "高定", "奢侈品", "珠宝", "香奈儿", "爱马仕", "ysl", "loewe", "chanel", "bain", "维多利亚", "老钱风", "高级"]
     fmcg_keywords = ["快消", "饮料", "饮料创新", "元气森林", "喜茶", "瑞幸", "咖啡", "茶饮", "瓶身", "包装", "麦肯锡", "消费", "白皮书"]
     runway_keywords = ["时装周", "秀场", "大片", "封面", "vogue", "巴黎", "装置艺术", "美学", "视觉", "色彩"]
@@ -112,6 +112,26 @@ def classify_article(title, desc):
         classes.append("campaign")
         
     return " ".join(classes)
+
+def load_fallback_cases():
+    """优先从本地 fallback_cases.json 加载备用案例，若无则使用默认列表"""
+    json_path = "fallback_cases.json"
+    if os.path.exists(json_path):
+        try:
+            with open(json_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                return [(item["title"], item["link"], item["desc"], item["source"]) for item in data]
+        except Exception as e:
+            print(f"读取 fallback_cases.json 失败: {e}")
+            
+    return [
+        ("元气森林如何用极致的年轻化包装与口味迭代占领无糖气泡水心智", "https://socialbeta.com/", "解构快消饮料如何在同质化竞争中通过视觉符号与概念创新突出重围...", "FBIF食品饮料创新"),
+        ("虎嗅年度营销大赏：情绪价值与品牌长效增长的博弈", "https://www.huxiu.com/", "探讨当下品牌如何从传统的流量收割转向用户心智的深度占领...", "虎嗅网营销频道"),
+        ("广告门创意金案：年度刷屏级 O2O 互动快闪空间复盘", "https://www.adquan.com/", "线下零售与美学装置如何完美结合，打造全网现象级打卡热潮...", "广告门 Adquan"),
+        ("喜茶 x 顶奢/艺术 IP 联名的符号学解构与破圈密码", "https://socialbeta.com/", "新茶饮跨界联名从最初的流量狂欢走向深度美学共创的演变路径...", "FBIF食品饮料创新"),
+        ("瑞幸咖啡爆品矩阵背后的数字化供应链与私域裂变逻辑", "https://www.huxiu.com/", "复盘高频快消品牌如何通过高频上新与社交裂变实现单品爆发...", "虎嗅网营销频道"),
+        ("独立香氛与高定美妆的线下沉浸式零售空间叙事", "https://www.businessoffashion.com/", "小众美学品牌如何通过气味和空间美学构筑极高的品牌心智护城河...", "BoF 时尚商业")
+    ]
 
 def generate_deep_analysis_html(title, desc, source):
     """自动生成数百字的完整结构化案例深度剖析文章 (HTML)"""
@@ -189,15 +209,8 @@ def fetch_multiple_news(limit=6):
             print(f"抓取 {feed['source']} 失败: {e}")
             continue
 
-    # 备用案例库
-    fallback_cases = [
-        ("元气森林如何用极致的年轻化包装与口味迭代占领无糖气泡水心智", "https://socialbeta.com/", "解构快消饮料如何在同质化竞争中通过视觉符号与概念创新突出重围...", "FBIF食品饮料创新"),
-        ("虎嗅年度营销大赏：情绪价值与品牌长效增长的博弈", "https://www.huxiu.com/", "探讨当下品牌如何从传统的流量收割转向用户心智的深度占领...", "虎嗅网营销频道"),
-        ("广告门创意金案：年度刷屏级 O2O 互动快闪空间复盘", "https://www.adquan.com/", "线下零售与美学装置如何完美结合，打造全网现象级打卡热潮...", "广告门 Adquan"),
-        ("喜茶 x 顶奢/艺术 IP 联名的符号学解构与破圈密码", "https://socialbeta.com/", "新茶饮跨界联名从最初的流量狂欢走向深度美学共创的演变路径...", "FBIF食品饮料创新"),
-        ("瑞幸咖啡爆品矩阵背后的数字化供应链与私域裂变逻辑", "https://www.huxiu.com/", "复盘高频快消品牌如何通过高频上新与社交裂变实现单品爆发...", "虎嗅网营销频道"),
-        ("独立香氛与高定美妆的线下沉浸式零售空间叙事", "https://www.businessoffashion.com/", "小众美学品牌如何通过气味和空间美学构筑极高的品牌心智护城河...", "BoF 时尚商业")
-    ]
+    # 加载备用案例库
+    fallback_cases = load_fallback_cases()
     
     random.shuffle(fallback_cases)
     i = 0
@@ -220,7 +233,7 @@ def fetch_multiple_news(limit=6):
     return news_list[:limit]
 
 def update_index_html(news_list):
-    """将动态分类类名应用到 HTML 各个模块卡片中"""
+    """将动态分类类名与最新热点应用到 HTML 各个模块卡片中"""
     html_path = "index.html"
     if not os.path.exists(html_path):
         print("未找到 index.html 文件！")
@@ -378,7 +391,7 @@ def update_index_html(news_list):
     
     content = re.sub(hero_pattern, new_hero_html, content, flags=re.DOTALL)
     content = re.sub(m1_pattern, new_m1_html, content, flags=re.DOTALL)
-    content = re.sub(m2_pattern, new_m2_html, content, flags=re.Sub(m2_html) if False else new_m2_html, flags=re.DOTALL)
+    content = re.sub(m2_pattern, new_m2_html, content, flags=re.DOTALL)
     content = re.sub(m3_pattern, new_m3_html, content, flags=re.DOTALL)
     content = re.sub(m4_pattern, new_m4_html, content, flags=re.DOTALL)
     content = re.sub(m5_pattern, new_m5_html, content, flags=re.DOTALL)
@@ -386,7 +399,7 @@ def update_index_html(news_list):
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print("已成功替换！智能分类与多源联动更新完成！")
+    print("已成功替换！智能分类、多源联动及备用案例库扩展机制更新完成！")
 
 if __name__ == "__main__":
     news = fetch_multiple_news(6)
