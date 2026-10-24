@@ -312,6 +312,40 @@ def update_index_html(news_list):
     </div>
     <!-- LAB-UPDATE-END -->'''
 
+    # 7. Hero 首页头条大图与文章替换
+    hero_pattern = r'(<!-- HERO-UPDATE-START -->)(.*?)(<!-- HERO-UPDATE-END -->)'
+    new_hero_html = f'''<!-- HERO-UPDATE-START -->
+        <div onclick="openAutoModal('{clean_js_str(news_list[0]['title'])}', '{clean_js_str(news_list[0]['deep_analysis'])}', '{news_list[0]['link']}', '{news_list[0]['source']}')" class="block relative group cursor-pointer img-zoom-container bg-brand-card p-3 border border-brand-border shadow-sm">
+          <div class="relative h-[420px] md:h-[500px] overflow-hidden">
+            <img src="{news_list[0]['image']}" 
+                 alt="Luxury & FMCG Campaign" 
+                 class="w-full h-full object-cover object-top">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+            
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="px-3 py-1 bg-white/95 backdrop-blur-md text-[10px] tracking-widest uppercase font-semibold text-brand-dark">
+                Featured Editorial
+              </span>
+              <span class="px-3 py-1 bg-brand-accent text-brand-dark backdrop-blur-md text-[10px] tracking-widest uppercase font-semibold">
+                点击展开深度阅读 ↗
+              </span>
+            </div>
+
+            <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
+              <div class="text-xs uppercase tracking-widest text-brand-accent font-medium">Spotlight · {news_list[0]['source']} 头条精选</div>
+              <h3 class="font-serif text-2xl md:text-3xl font-normal leading-tight">
+                {news_list[0]['title']}
+              </h3>
+              <p class="text-xs text-gray-300 font-light line-clamp-2">
+                {news_list[0]['desc']}
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- HERO-UPDATE-END -->'''
+    
+    content = re.sub(hero_pattern, new_hero_html, content, flags=re.DOTALL)
+
     content = re.sub(m1_pattern, new_m1_html, content, flags=re.DOTALL)
     content = re.sub(m2_pattern, new_m2_html, content, flags=re.DOTALL)
     content = re.sub(m3_pattern, new_m3_html, content, flags=re.DOTALL)
