@@ -4,21 +4,36 @@ import random
 import urllib.request
 import xml.etree.ElementTree as ET
 
-# 订阅权威媒体 RSS 源
+# 订阅包含 FBIF、虎嗅、广告门、SocialBeta 及 BoF 的权威营销与创新媒体源
 RSS_FEEDS = [
     {
-        "source": "BoF 时尚商业",
-        "url": "https://www.businessoffashion.com/feed",
-        "tag": "BoF 极速直达 ↗"
+        "source": "FBIF食品饮料创新",
+        "url": "https://www.fbif.com/feed",  # 或使用对应合规订阅源
+        "tag": "FBIF 创新速递 ↗"
+    },
+    {
+        "source": "虎嗅网营销频道",
+        "url": "https://www.huxiu.com/rss/0.xml",
+        "tag": "虎嗅 ↗"
+    },
+    {
+        "source": "广告门 Adquan",
+        "url": "https://www.adquan.com/rss.php",
+        "tag": "广告门创意 ↗"
     },
     {
         "source": "SocialBeta 营销案例",
         "url": "https://socialbeta.com/feed",
         "tag": "SocialBeta ↗"
+    },
+    {
+        "source": "BoF 时尚商业",
+        "url": "https://www.businessoffashion.com/feed",
+        "tag": "BoF 极速直达 ↗"
     }
 ]
 
-# 高质感美学备用图库（当文章未自带图片时自动顶替，确保视觉永远在线）
+# 高质感美学备用图库（当文章未自带图片时自动顶替）
 FALLBACK_IMAGES = [
     "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
@@ -42,14 +57,12 @@ def extract_article_link(item):
 
 def extract_article_image(item):
     """尝试多途径提取 RSS 文章自带的官方配图"""
-    # 1. 检查 media:content 或 media:thumbnail 节点
     for child in item:
         if 'media' in child.tag.lower() or 'thumbnail' in child.tag.lower():
             img_url = child.attrib.get('url')
             if img_url and img_url.startswith('http'):
                 return img_url
 
-    # 2. 检查 enclosure 节点
     enclosure = item.find('enclosure')
     if enclosure is not None:
         url = enclosure.attrib.get('url')
@@ -57,7 +70,6 @@ def extract_article_image(item):
         if url and ('image' in type_str or url.endswith(('.jpg', '.png', '.jpeg', '.webp'))):
             return url
 
-    # 3. 从 description 或 content:encoded 的 HTML 文本中用正则匹配第一张图片
     raw_html = ""
     desc_node = item.find('description')
     if desc_node is not None and desc_node.text:
@@ -107,7 +119,7 @@ def generate_deep_analysis_html(title, desc, source):
     """
 
 def fetch_multiple_news(limit=6):
-    """抓取热点新闻、提取官方配图并转化为深度案例"""
+    """抓取多源营销创新热点，并支持官方配图捕获"""
     news_list = []
     for feed in RSS_FEEDS:
         try:
@@ -116,12 +128,12 @@ def fetch_multiple_news(limit=6):
                 xml_data = response.read()
                 root = ET.fromstring(xml_data)
                 
-                for item in root.findall('.//item')[:4]:
+                for item in root.findall('.//item')[:3]:
                     title = item.find('title').text if item.find('title') is not None else ""
                     link = extract_article_link(item)
                     desc = item.find('description').text if item.find('description') is not None else ""
                     
-                    if not link:
+                    if not link or not title:
                         continue
 
                     clean_desc = re.sub('<[^<]+?>', '', desc)[:150].strip() + "..."
@@ -147,14 +159,14 @@ def fetch_multiple_news(limit=6):
             print(f"抓取 {feed['source']} 失败: {e}")
             continue
 
-    # 高质量精选备用文章
+    # 经典营销与食品饮料创新备用案例库（当个别 RSS 暂时无法连接时自动补齐）
     fallback_cases = [
-        ("全球奢侈品集团加码高定美妆与独立香氛赛道", "https://www.businessoffashion.com/articles/beauty/luxury-conglomerates-beauty-fragrance-acquisitions/", "各大奢侈品巨头持续通过收购高定香氛与独立护肤品牌扩大接触点...", RSS_FEEDS[0]["source"]),
-        ("快闪店设计中的嗅觉符号学与沉浸空间叙事", "https://socialbeta.com/article/109492", "探讨线下零售如何通过独特的空间陈列与气味记忆延长顾客驻留时间...", RSS_FEEDS[1]["source"]),
-        ("解构主义美学在当代品牌视觉中的重构与表达", "https://www.businessoffashion.com/podcasts/entrepreneurship/feed-mes-emily-sundberg-on-how-fashion-underestimates-its-customers/", "从时装周看老钱风与解构剪裁如何碰撞出全新的年轻消费共鸣...", RSS_FEEDS[0]["source"]),
-        ("DTC 品牌如何通过深度文本美学构建心智护城河", "https://socialbeta.com/campaign/15609", "摆脱价格战泥潭，探讨高客单品牌如何利用叙事美学提升复购率...", RSS_FEEDS[1]["source"]),
-        ("新奢品牌如何平衡数字营销与专柜尊享体验", "https://www.businessoffashion.com/news/technology/instagram-to-ditch-chronological-user-feed-for-interest-based-one/", "后流量时代，如何利用私域高定服务锁住顶尖 VIC 客户群...", RSS_FEEDS[0]["source"]),
-        ("快消品牌的极简包装视觉升级策略与溢价推演", "https://socialbeta.com/article/103358", "字体间距微调与包材留白如何提升产品在货架上的视觉占有率...", RSS_FEEDS[1]["source"])
+        ("元气森林如何用极致的年轻化包装与口味迭代占领无糖气泡水心智", "https://socialbeta.com/", "解构快消饮料如何在同质化竞争中通过视觉符号与概念创新突出重围...", "FBIF食品饮料创新"),
+        ("虎嗅年度营销大赏：情绪价值与品牌长效增长的博弈", "https://www.huxiu.com/", "探讨当下品牌如何从传统的流量收割转向用户心智的深度占领...", "虎嗅网营销频道"),
+        ("广告门创意金案：年度刷屏级 O2O 互动快闪空间复盘", "https://www.adquan.com/", "线下零售与美学装置如何完美结合，打造全网现象级打卡热潮...", "广告门 Adquan"),
+        ("喜茶 x 顶奢/艺术 IP 联名的符号学解构与破圈密码", "https://socialbeta.com/", "新茶饮跨界联名从最初的流量狂欢走向深度美学共创的演变路径...", "FBIF食品饮料创新"),
+        ("瑞幸咖啡爆品矩阵背后的数字化供应链与私域裂变逻辑", "https://www.huxiu.com/", "复盘高频快消品牌如何通过高频上新与社交裂变实现单品爆发...", "虎嗅网营销频道"),
+        ("独立香氛与高定美妆的线下沉浸式零售空间叙事", "https://www.businessoffashion.com/", "小众美学品牌如何通过气味和空间美学构筑极高的品牌心智护城河...", "BoF 时尚商业")
     ]
     
     random.shuffle(fallback_cases)
@@ -167,11 +179,12 @@ def fetch_multiple_news(limit=6):
             "desc": f_desc,
             "deep_analysis": generate_deep_analysis_html(f_title, f_desc, f_source),
             "source": f_source,
-            "tag": "BoF ↗" if "BoF" in f_source else "SocialBeta ↗",
+            "tag": "深度研判 ↗",
             "image": FALLBACK_IMAGES[i % len(FALLBACK_IMAGES)]
         })
         i += 1
         
+    random.shuffle(news_list)
     return news_list[:limit]
 
 def update_index_html(news_list):
@@ -299,7 +312,6 @@ def update_index_html(news_list):
     </div>
     <!-- LAB-UPDATE-END -->'''
 
-    # 执行替换
     content = re.sub(m1_pattern, new_m1_html, content, flags=re.DOTALL)
     content = re.sub(m2_pattern, new_m2_html, content, flags=re.DOTALL)
     content = re.sub(m3_pattern, new_m3_html, content, flags=re.DOTALL)
@@ -309,7 +321,7 @@ def update_index_html(news_list):
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print("已成功替换！所有板块已升级为“优先抓取 RSS 官方配图 + 高质感备用库兜底”模式！")
+    print("已成功替换！多源媒体（FBIF、虎嗅、广告门、SocialBeta、BoF）联动更新完成！")
 
 if __name__ == "__main__":
     news = fetch_multiple_news(6)
