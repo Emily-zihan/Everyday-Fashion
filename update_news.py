@@ -44,8 +44,8 @@ def extract_article_link(item):
             
     return link
 
-def generate_deep_analysis_html(title, desc, source, link):
-    """自动生成数百字的完整结构化案例深度剖析文章 (HTML)"""
+def generate_deep_analysis_html(title, desc, source):
+    """自动生成数百字的完整结构化案例深度剖析文章 (HTML，不含重复的底部按钮)"""
     return f"""
     <div class='space-y-4 text-xs font-light text-gray-700 leading-relaxed'>
         <div class='p-3 bg-brand-champagne/40 border-l-2 border-brand-accent font-serif italic text-brand-dark'>
@@ -59,7 +59,7 @@ def generate_deep_analysis_html(title, desc, source, link):
 
         <div>
             <h4 class='font-semibold text-brand-dark text-sm mb-1'>二、 核心创意策略 (Big Idea & Visual Strategy)</h4>
-            <p>1. <b>视觉与空间符号重构：</b>打破常规表达，将品牌的标志性 DNA 与高质感艺术视觉进行深度深度绑定，构建强烈的识别资产。<br>
+            <p>1. <b>视觉与空间符号重构：</b>打破常规表达，将品牌的标志性 DNA 与高质感艺术视觉进行深度绑定，构建强烈的识别资产。<br>
             2. <b>情绪价值注入：</b>围绕当下消费者的‘治愈感’与‘圈层归属’需求，将产品转译为生活方式的载体，实现高溢价与精神认同。</p>
         </div>
 
@@ -72,12 +72,6 @@ def generate_deep_analysis_html(title, desc, source, link):
         <div>
             <h4 class='font-semibold text-brand-dark text-sm mb-1'>四、 商业转化与长线资产沉淀 (Impact & Assets)</h4>
             <p>通过本次营销动作，品牌不仅成功占领了细分赛道的顶尖心智，更实现了全网声量与高客单复购率的双重爆发，将短期流量转化为可沉淀的品牌心智资产。</p>
-        </div>
-
-        <div class='pt-4 border-t border-brand-border flex flex-wrap gap-3 mt-4'>
-            <a href='{link}' target='_blank' class='px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors'>
-                直达 {source} 原文报道详情页 ↗
-            </a>
         </div>
     </div>
     """
@@ -103,7 +97,7 @@ def fetch_multiple_news(limit=6):
                     clean_desc = re.sub('<[^<]+?>', '', desc)[:150].strip() + "..."
                     source_name = feed["source"]
                     
-                    deep_html = generate_deep_analysis_html(title.strip(), clean_desc, source_name, link)
+                    deep_html = generate_deep_analysis_html(title.strip(), clean_desc, source_name)
                     
                     news_list.append({
                         "title": title.strip(),
@@ -136,7 +130,7 @@ def fetch_multiple_news(limit=6):
             "title": f_title,
             "link": f_link,
             "desc": f_desc,
-            "deep_analysis": generate_deep_analysis_html(f_title, f_desc, f_source, f_link),
+            "deep_analysis": generate_deep_analysis_html(f_title, f_desc, f_source),
             "source": f_source,
             "tag": "BoF ↗" if "BoF" in f_source else "SocialBeta ↗",
             "image": CURATED_IMAGES[i % len(CURATED_IMAGES)]
