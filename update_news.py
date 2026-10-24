@@ -34,15 +34,28 @@ RSS_FEEDS = [
     }
 ]
 
-# 高质感美学备用图库（当文章未自带图片时自动顶替）
-FALLBACK_IMAGES = [
-    "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=800&q=80"
-]
+# ==================== 精准分类的主题美学图库（确保图文高度契合） ====================
+THEMED_IMAGES = {
+    "fmcg": [  # 快消、饮料、包装、茶饮、咖啡类专属视觉
+        "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1000&q=80", # 咖啡饮品
+        "https://images.unsplash.com/photo-1534482421-64566f976cfa?auto=format&fit=crop&w=1000&q=80", # 瓶身包装
+        "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=1000&q=80"  # 现代快消
+    ],
+    "luxury": [  # 奢侈品、高定美妆、香氛、珠宝类专属视觉
+        "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=80", # 高档护肤
+        "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1000&q=80", # 珠宝奢品
+        "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=80"  # 高定美妆
+    ],
+    "runway": [  # 秀场、时装周、大片、空间美学类专属视觉
+        "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1000&q=80", # 暗黑极简/大片
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80", # 秀场模特
+        "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=1000&q=80"  # 空间艺术装置
+    ],
+    "campaign": [  # 营销大赏、快闪空间、全案复盘类专属视觉
+        "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80", # 线下零售
+        "https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=1000&q=80"  # 创意策划
+    ]
+}
 
 def extract_article_link(item):
     """精准提取 RSS 节点中的文章具体 URL"""
@@ -88,7 +101,7 @@ def extract_article_image(item):
     return None
 
 def classify_article(title, desc):
-    """根据文章标题和摘要自动判定其所属的分类标签类名，实现与顶部筛选栏的完美联动"""
+    """根据文章标题和摘要自动判定其所属的分类标签类名"""
     text = (title + " " + desc).lower()
     
     luxury_keywords = ["奢品", "高定", "奢侈品", "珠宝", "香奈儿", "爱马仕", "ysl", "loewe", "chanel", "bain", "维多利亚", "老钱风", "高级"]
@@ -96,25 +109,37 @@ def classify_article(title, desc):
     runway_keywords = ["时装周", "秀场", "大片", "封面", "vogue", "巴黎", "装置艺术", "美学", "视觉", "色彩"]
     
     classes = ["content-card", "filter-item"]
+    category_key = "campaign"  # 默认主题
     
     if any(kw in text for kw in luxury_keywords):
         classes.append("luxury")
+        category_key = "luxury"
     if any(kw in text for kw in fmcg_keywords):
         classes.append("fmcg")
+        category_key = "fmcg"
     if any(kw in text for kw in runway_keywords):
         classes.append("runway")
+        category_key = "runway"
         
-    # 默认兜底归类
     if "fmcg" not in classes and "luxury" not in classes:
         classes.append("luxury")
         classes.append("campaign")
     else:
         classes.append("campaign")
         
-    return " ".join(classes)
+    return " ".join(classes), category_key
+
+def get_matched_image(article_img, category_key):
+    """确保图片与案例主题完美契合：若文章自带官方图则优先使用，若无则从对应的主题图库中精准抽取"""
+    if article_img and article_img.startswith('http'):
+        return article_img
+    
+    # 根据分类从对应的主题图库中随机取一张最对口的大片
+    pool = THEMED_IMAGES.get(category_key, THEMED_IMAGES["campaign"])
+    return random.choice(pool)
 
 def load_fallback_cases():
-    """优先从本地 fallback_cases.json 加载备用案例，若无则使用默认列表"""
+    """加载备用案例库"""
     json_path = "fallback_cases.json"
     if os.path.exists(json_path):
         try:
@@ -154,7 +179,7 @@ def generate_deep_analysis_html(title, desc, source):
 
         <div>
             <h4 class='font-semibold text-brand-dark text-sm mb-1'>三、 全域传播路径 (Seeding & Channel Mix)</h4>
-            <p>· <b>线上社交声量爆破：</b>以小红书、微信公众号为主阵地进行深度视觉种草与文案叙事，联合头部 KOL 形成多维度的口碑共振。<br>
+            <p>· <b>线上社交声量爆破：</b>以小红书, 微信公众号为主阵地进行深度视觉种草与文案叙事，联合头部 KOL 形成多维度的口碑共振。<br>
             · <b>线下体验场域延伸：</b>依托沉浸式快闪空间/艺术展陈，将线上流量高效引导至线下触觉体验，打造社交打卡闭环。</p>
         </div>
 
@@ -166,7 +191,7 @@ def generate_deep_analysis_html(title, desc, source):
     """
 
 def fetch_multiple_news(limit=6):
-    """抓取多源营销创新热点，并自动附加智能分类类名"""
+    """抓取多源营销创新热点，并实现图文主题的智能精准匹配"""
     news_list = []
     for feed in RSS_FEEDS:
         try:
@@ -186,14 +211,14 @@ def fetch_multiple_news(limit=6):
                     clean_desc = re.sub('<[^<]+?>', '', desc)[:150].strip() + "..."
                     source_name = feed["source"]
                     
-                    article_img = extract_article_image(item)
-                    if not article_img:
-                        article_img = random.choice(FALLBACK_IMAGES)
+                    # 1. 智能分类并获取分类键
+                    auto_classes, category_key = classify_article(title.strip(), clean_desc)
+                    
+                    # 2. 提取官方配图，若无则匹配对应分类的高美学主题图
+                    raw_img = extract_article_image(item)
+                    final_img = get_matched_image(raw_img, category_key)
                     
                     deep_html = generate_deep_analysis_html(title.strip(), clean_desc, source_name)
-                    
-                    # 核心步骤：在此处调用分类函数，为新闻赋予专属分类类名
-                    auto_classes = classify_article(title.strip(), clean_desc)
                     
                     news_list.append({
                         "title": title.strip(),
@@ -202,8 +227,8 @@ def fetch_multiple_news(limit=6):
                         "deep_analysis": deep_html,
                         "source": source_name,
                         "tag": feed["tag"],
-                        "image": article_img,
-                        "classes": auto_classes  # 存储智能分类标签
+                        "image": final_img,
+                        "classes": auto_classes
                     })
         except Exception as e:
             print(f"抓取 {feed['source']} 失败: {e}")
@@ -216,7 +241,9 @@ def fetch_multiple_news(limit=6):
     i = 0
     while len(news_list) < limit:
         f_title, f_link, f_desc, f_source = fallback_cases[i % len(fallback_cases)]
-        auto_classes = classify_article(f_title, f_desc)
+        auto_classes, category_key = classify_article(f_title, f_desc)
+        final_img = get_matched_image(None, category_key)
+        
         news_list.append({
             "title": f_title,
             "link": f_link,
@@ -224,7 +251,7 @@ def fetch_multiple_news(limit=6):
             "deep_analysis": generate_deep_analysis_html(f_title, f_desc, f_source),
             "source": f_source,
             "tag": "深度研判 ↗",
-            "image": FALLBACK_IMAGES[i % len(FALLBACK_IMAGES)],
+            "image": final_img,
             "classes": auto_classes
         })
         i += 1
@@ -233,7 +260,7 @@ def fetch_multiple_news(limit=6):
     return news_list[:limit]
 
 def update_index_html(news_list):
-    """将动态分类类名与最新热点应用到 HTML 各个模块卡片中"""
+    """将图文完美契合的内容更新至 HTML 对应板块"""
     html_path = "index.html"
     if not os.path.exists(html_path):
         print("未找到 index.html 文件！")
@@ -357,11 +384,10 @@ def update_index_html(news_list):
     </div>
     <!-- LAB-UPDATE-END -->'''
 
-    # 7. Hero 首页头条大图与文章替换
+    # 7. Hero 首页头条大图与文章替换（移动端优化：h-[340px] md:h-[500px]）
     hero_pattern = r'(<!-- HERO-UPDATE-START -->)(.*?)(<!-- HERO-UPDATE-END -->)'
     new_hero_html = f'''<!-- HERO-UPDATE-START -->
         <div onclick="openAutoModal('{clean_js_str(news_list[0]['title'])}', '{clean_js_str(news_list[0]['deep_analysis'])}', '{news_list[0]['link']}', '{news_list[0]['source']}')" class="block relative group cursor-pointer img-zoom-container bg-brand-card p-3 border border-brand-border shadow-sm">
-          <!-- 核心修改点：将移动端高度从 h-[420px] 调整为 h-[340px] -->
           <div class="relative h-[340px] md:h-[500px] overflow-hidden">
             <img src="{news_list[0]['image']}" 
                  alt="Luxury & FMCG Campaign" 
@@ -389,8 +415,6 @@ def update_index_html(news_list):
           </div>
         </div>
         <!-- HERO-UPDATE-END -->'''
-
-           
     
     content = re.sub(hero_pattern, new_hero_html, content, flags=re.DOTALL)
     content = re.sub(m1_pattern, new_m1_html, content, flags=re.DOTALL)
@@ -402,7 +426,7 @@ def update_index_html(news_list):
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print("已成功替换！智能分类、多源联动及备用案例库扩展机制更新完成！")
+    print("已成功替换！图文主题智能精准匹配及移动端高度优化完成！")
 
 if __name__ == "__main__":
     news = fetch_multiple_news(6)
