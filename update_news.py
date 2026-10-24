@@ -18,8 +18,8 @@ RSS_FEEDS = [
     }
 ]
 
-# 高质感大片图片库 (每日自动随机匹配，保证视觉刷新)
-CURATED_IMAGES = [
+# 高质感美学备用图库（当文章未自带图片时自动顶替，确保视觉永远在线）
+FALLBACK_IMAGES = [
     "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80",
@@ -31,21 +31,51 @@ CURATED_IMAGES = [
 def extract_article_link(item):
     """精准提取 RSS 节点中的文章具体 URL"""
     link = ""
-    # 优先找 Standard <link>
     link_node = item.find('link')
     if link_node is not None and link_node.text:
         link = link_node.text.strip()
-    
-    # 若为空尝试 guid
     if not link:
         guid_node = item.find('guid')
         if guid_node is not None and guid_node.text and guid_node.text.startswith("http"):
             link = guid_node.text.strip()
-            
     return link
 
+def extract_article_image(item):
+    """尝试多途径提取 RSS 文章自带的官方配图"""
+    # 1. 检查 media:content 或 media:thumbnail 节点
+    for child in item:
+        if 'media' in child.tag.lower() or 'thumbnail' in child.tag.lower():
+            img_url = child.attrib.get('url')
+            if img_url and img_url.startswith('http'):
+                return img_url
+
+    # 2. 检查 enclosure 节点
+    enclosure = item.find('enclosure')
+    if enclosure is not None:
+        url = enclosure.attrib.get('url')
+        type_str = enclosure.attrib.get('type', '')
+        if url and ('image' in type_str or url.endswith(('.jpg', '.png', '.jpeg', '.webp'))):
+            return url
+
+    # 3. 从 description 或 content:encoded 的 HTML 文本中用正则匹配第一张图片
+    raw_html = ""
+    desc_node = item.find('description')
+    if desc_node is not None and desc_node.text:
+        raw_html += desc_node.text
+        
+    for child in item:
+        if 'content' in child.tag.lower() and child.text:
+            raw_html += child.text
+
+    if raw_html:
+        img_match = re.search(r'<img[^>]+src=["\'](http[^\"\']+)["\']', raw_html, re.IGNORECASE)
+        if img_match:
+            return img_match.group(1)
+
+    return None
+
 def generate_deep_analysis_html(title, desc, source):
-    """自动生成数百字的完整结构化案例深度剖析文章 (HTML，不含重复的底部按钮)"""
+    """自动生成数百字的完整结构化案例深度剖析文章 (HTML)"""
     return f"""
     <div class='space-y-4 text-xs font-light text-gray-700 leading-relaxed'>
         <div class='p-3 bg-brand-champagne/40 border-l-2 border-brand-accent font-serif italic text-brand-dark'>
@@ -77,7 +107,7 @@ def generate_deep_analysis_html(title, desc, source):
     """
 
 def fetch_multiple_news(limit=6):
-    """抓取热点新闻并转化为深度案例"""
+    """抓取热点新闻、提取官方配图并转化为深度案例"""
     news_list = []
     for feed in RSS_FEEDS:
         try:
@@ -97,6 +127,11 @@ def fetch_multiple_news(limit=6):
                     clean_desc = re.sub('<[^<]+?>', '', desc)[:150].strip() + "..."
                     source_name = feed["source"]
                     
+                    # 尝试抓取文章自带的官方配图，若无则随机使用高美学备用图
+                    article_img = extract_article_image(item)
+                    if not article_img:
+                        article_img = random.choice(FALLBACK_IMAGES)
+                    
                     deep_html = generate_deep_analysis_html(title.strip(), clean_desc, source_name)
                     
                     news_list.append({
@@ -106,13 +141,13 @@ def fetch_multiple_news(limit=6):
                         "deep_analysis": deep_html,
                         "source": source_name,
                         "tag": feed["tag"],
-                        "image": random.choice(CURATED_IMAGES)
+                        "image": article_img
                     })
         except Exception as e:
             print(f"抓取 {feed['source']} 失败: {e}")
             continue
 
-    # 高质量精选备用文章（全部带有具体的深度报道链接）
+    # 高质量精选备用文章
     fallback_cases = [
         ("全球奢侈品集团加码高定美妆与独立香氛赛道", "https://www.businessoffashion.com/articles/beauty/luxury-conglomerates-beauty-fragrance-acquisitions/", "各大奢侈品巨头持续通过收购高定香氛与独立护肤品牌扩大接触点...", RSS_FEEDS[0]["source"]),
         ("快闪店设计中的嗅觉符号学与沉浸空间叙事", "https://socialbeta.com/article/109492", "探讨线下零售如何通过独特的空间陈列与气味记忆延长顾客驻留时间...", RSS_FEEDS[1]["source"]),
@@ -133,7 +168,7 @@ def fetch_multiple_news(limit=6):
             "deep_analysis": generate_deep_analysis_html(f_title, f_desc, f_source),
             "source": f_source,
             "tag": "BoF ↗" if "BoF" in f_source else "SocialBeta ↗",
-            "image": CURATED_IMAGES[i % len(CURATED_IMAGES)]
+            "image": FALLBACK_IMAGES[i % len(FALLBACK_IMAGES)]
         })
         i += 1
         
@@ -264,7 +299,7 @@ def update_index_html(news_list):
     </div>
     <!-- LAB-UPDATE-END -->'''
 
-    # 执行匹配替换
+    # 执行替换
     content = re.sub(m1_pattern, new_m1_html, content, flags=re.DOTALL)
     content = re.sub(m2_pattern, new_m2_html, content, flags=re.DOTALL)
     content = re.sub(m3_pattern, new_m3_html, content, flags=re.DOTALL)
@@ -274,7 +309,7 @@ def update_index_html(news_list):
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print("已成功替换！所有按钮与弹窗链接均已升级为具体文章报道的深度 URL！")
+    print("已成功替换！所有板块已升级为“优先抓取 RSS 官方配图 + 高质感备用库兜底”模式！")
 
 if __name__ == "__main__":
     news = fetch_multiple_news(6)
