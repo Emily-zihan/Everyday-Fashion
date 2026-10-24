@@ -361,7 +361,8 @@ def update_index_html(news_list):
     hero_pattern = r'(<!-- HERO-UPDATE-START -->)(.*?)(<!-- HERO-UPDATE-END -->)'
     new_hero_html = f'''<!-- HERO-UPDATE-START -->
         <div onclick="openAutoModal('{clean_js_str(news_list[0]['title'])}', '{clean_js_str(news_list[0]['deep_analysis'])}', '{news_list[0]['link']}', '{news_list[0]['source']}')" class="block relative group cursor-pointer img-zoom-container bg-brand-card p-3 border border-brand-border shadow-sm">
-          <div class="relative h-[420px] md:h-[500px] overflow-hidden">
+          <!-- 核心修改点：将移动端高度从 h-[420px] 调整为 h-[340px] -->
+          <div class="relative h-[340px] md:h-[500px] overflow-hidden">
             <img src="{news_list[0]['image']}" 
                  alt="Luxury & FMCG Campaign" 
                  class="w-full h-full object-cover object-top">
@@ -388,6 +389,8 @@ def update_index_html(news_list):
           </div>
         </div>
         <!-- HERO-UPDATE-END -->'''
+
+           
     
     content = re.sub(hero_pattern, new_hero_html, content, flags=re.DOTALL)
     content = re.sub(m1_pattern, new_m1_html, content, flags=re.DOTALL)
