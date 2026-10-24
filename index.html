@@ -108,7 +108,7 @@
         </span>
       </a>
 
-      <!-- Desktop Nav (已去除 Portfolio 链接) -->
+      <!-- Desktop Nav -->
       <nav class="hidden md:flex items-center space-x-8 text-xs tracking-wider uppercase font-medium text-brand-muted">
         <a href="#hero" class="hover:text-brand-dark transition-colors py-2">首页</a>
         <a href="#gallery" class="hover:text-brand-dark transition-colors py-2">灵感大片</a>
@@ -121,7 +121,7 @@
 
       <!-- Action Button -->
       <div class="hidden lg:flex items-center space-x-4">
-        <a href="https://www.luxe.co/" target="_blank" class="p-2 hover:text-brand-accent transition-colors" title="前往华丽志阅读更多资讯">
+        <a href="https://luxe.co/" target="_blank" class="p-2 hover:text-brand-accent transition-colors" title="前往华丽志阅读更多资讯">
           <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
         </a>
       </div>
@@ -362,7 +362,7 @@
             <button onclick="openHelenaCaseModal()" class="text-xs uppercase tracking-widest font-medium border-b border-brand-dark pb-1 hover:text-brand-accent hover:border-brand-accent transition-colors">
               阅读个人深度拆解报告 <i class="fa-solid fa-arrow-right ml-1 text-[10px]"></i>
             </button>
-            <a href="https://www.socialbeta.com/" target="_blank" class="text-[10px] text-brand-muted hover:text-brand-accent">
+            <a href="https://socialbeta.com/" target="_blank" class="text-[10px] text-brand-muted hover:text-brand-accent">
               查看 SocialBeta 行业案例库 ↗
             </a>
           </div>
@@ -876,7 +876,18 @@
       document.getElementById('detailModal').classList.add('hidden');
     }
 
-    // 弹窗合集：所有文章及卡片对应的站内精读与双向直达链接
+    function openAutoModal(title, deepAnalysisHtml, link, source) {
+      openDetailModal(
+        title,
+        deepAnalysisHtml + 
+        '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3 mt-4">' +
+          '<a href="' + link + '" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">直达 ' + source + ' 原文报道详情页 ↗</a>' +
+        '</div>',
+        ''
+      );
+    }
+
+    // 弹窗合集：升级所有经典卡片与文章的“精确报道详情页直达链接”
     function openHeroModal() {
       openDetailModal(
         '如何用暗黑极简主义（Dark Minimalism）构建品牌的高溢价防线？',
@@ -884,7 +895,7 @@
           '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“在信息纷杂的数字时代，留白与极致的暗黑美学往往最能穿透视觉噪音。”</p>' +
           '<p><b>【核心拆解】</b>Yves Saint Laurent 通过标志性的暗黑高定美学与建筑感秀场布景，将品牌数十年的法式优雅转译为当代年轻高净值客群的文化认同感。大片中克制的单光源运用与冷调黑白剪裁，筑起了坚固的高溢价壁垒。</p>' +
           '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
-            '<a href="https://www.voguebusiness.com/story/fashion/saint-laurent-art-direction-luxury-strategy" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读 Vogue Business 原文 ↗</a>' +
+            '<a href="https://www.voguebusiness.com/story/fashion/saint-laurent-art-direction-luxury-strategy" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读 Vogue Business 深度报道 ↗</a>' +
             '<a href="https://www.ysl.com/" target="_blank" class="px-4 py-2 border border-brand-dark text-brand-dark text-[10px] uppercase tracking-widest hover:bg-brand-dark hover:text-white transition-colors">前往 YSL 官方网站 ↗</a>' +
           '</div>' +
         '</div>',
@@ -897,9 +908,9 @@
         '工艺与有形体验：Loewe 怎样用有机的材质语言重塑空间感？',
         '<div class="space-y-4 text-xs font-light text-gray-700 leading-relaxed">' +
           '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“在数字营销过载的时代，极致的线下触觉体验成为了奢品最稀缺的沟通媒介。”</p>' +
-          '<p><b>【美学视角】</b>Loewe 在米兰家具展及快闪空间中，放弃了传统奢品冰冷的金碧辉煌，改用皮革,编织,原木等充满自然纹理的有机材质。通过灯光与材质的触觉互动，将品牌‘百年手工艺’的 DNA 转化为触手可及的空间语言。</p>' +
+          '<p><b>【美学视角】</b>Loewe 在米兰家具展及快闪空间中，放弃了传统奢品冰冷的金碧辉煌，改用皮革、编织、原木等充满自然纹理的有机材质。通过灯光与材质的触觉互动，将品牌‘百年手工艺’的 DNA 转化为触手可及的空间语言。</p>' +
           '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
-            '<a href="https://luxe.co/post/285602" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读华丽志原文报道 ↗</a>' +
+            '<a href="https://luxe.co/post/285602" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读华丽志深度文章 ↗</a>' +
             '<a href="https://www.loewe.com/" target="_blank" class="px-4 py-2 border border-brand-dark text-brand-dark text-[10px] uppercase tracking-widest hover:bg-brand-dark hover:text-white transition-colors">前往 Loewe 官方网站 ↗</a>' +
           '</div>' +
         '</div>',
@@ -914,7 +925,7 @@
           '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“真正的品牌资产，是让用户在百米之外仅凭瓶身形状就能认出你。”</p>' +
           '<p><b>【美学视角】</b>Aesop（伊索）的经典棕色瓶身源于实验室药剂瓶设计。极简的统一黑白标签与 Helvetica 字体，赋予了产品浓厚的理性科学感与文艺智性美学。</p>' +
           '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
-            '<a href="https://www.digitaling.com/articles/231145.html" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读数英网原文拆解 ↗</a>' +
+            '<a href="https://www.digitaling.com/articles/231145.html" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读数英网深度案例拆解 ↗</a>' +
             '<a href="https://www.aesop.com/" target="_blank" class="px-4 py-2 border border-brand-dark text-brand-dark text-[10px] uppercase tracking-widest hover:bg-brand-dark hover:text-white transition-colors">前往 Aesop 官方网站 ↗</a>' +
           '</div>' +
         '</div>',
@@ -929,7 +940,7 @@
           '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“高定珠宝的平面叙事，本质上是对光线与克制的极致艺术掌控。”</p>' +
           '<p><b>【核心策略】</b>分析 Chanel 高定珠宝大片中黑白调摄影与单光源构图的运用，探讨如何在静态平面中构筑梦幻般的奢华感与高级圈层心智。</p>' +
           '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
-            '<a href="https://www.businessoffashion.com/articles/luxury/chanel-high-jewellery-marketing-strategy/" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读 BoF 英文原文 ↗</a>' +
+            '<a href="https://www.businessoffashion.com/articles/luxury/chanel-high-jewellery-marketing-strategy/" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读 BoF 英文深度原文 ↗</a>' +
             '<a href="https://www.chanel.com/" target="_blank" class="px-4 py-2 border border-brand-dark text-brand-dark text-[10px] uppercase tracking-widest hover:bg-brand-dark hover:text-white transition-colors">前往 Chanel 官方网站 ↗</a>' +
           '</div>' +
         '</div>',
@@ -944,7 +955,7 @@
           '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“顶奢品牌卖的不是护肤品成分，而是艺术级的耗时与稀缺感。”</p>' +
           '<p><b>【项目背景】</b>高定护肤赛道同质化严重，赫莲娜选择跳出成分卷战，与中国非遗手工艺进行深度跨界合作，建立文化心智溢价。</p>' +
           '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
-            '<a href="https://www.socialbeta.com/" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">查看 SocialBeta 行业案例库 ↗</a>' +
+            '<a href="https://socialbeta.com/article/109492" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">查看 SocialBeta 详细案例拆解 ↗</a>' +
             '<a href="https://www.helenarubinstein.com/" target="_blank" class="px-4 py-2 border border-brand-dark text-brand-dark text-[10px] uppercase tracking-widest hover:bg-brand-dark hover:text-white transition-colors">前往 赫莲娜 官方网站 ↗</a>' +
           '</div>' +
         '</div>',
@@ -959,7 +970,7 @@
           '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“低门槛联名与私域裂变，是快消品牌引爆社交声量的黄金法则。”</p>' +
           '<p><b>【核心逻辑】</b>复盘快消爆款的包装物料设计、私域领券裂变、社交媒体梗文化传播与极致供应网配合。</p>' +
           '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
-            '<a href="https://www.socialbeta.com/t/case-luckin-coffee-collaboration" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读 SocialBeta 联名原文 ↗</a>' +
+            '<a href="https://socialbeta.com/campaign/15609" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读 SocialBeta 联名案例原文 ↗</a>' +
             '<a href="https://www.luckincoffee.com/" target="_blank" class="px-4 py-2 border border-brand-dark text-brand-dark text-[10px] uppercase tracking-widest hover:bg-brand-dark hover:text-white transition-colors">前往 瑞幸咖啡 官方网站 ↗</a>' +
           '</div>' +
         '</div>',
@@ -974,7 +985,7 @@
           '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“用散文式的东方文案构筑香氛护城河，摆脱价格战泥潭。”</p>' +
           '<p><b>【核心策略】</b>探讨快消香氛品牌如何利用公众号深度的文案叙事、独立沙龙调香与限定版包材构建品牌忠诚度。</p>' +
           '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
-            '<a href="https://www.digitaling.com/articles/654321.html" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读数英网文案拆解 ↗</a>' +
+            '<a href="https://www.digitaling.com/articles/654321.html" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">阅读数英网文案深度拆解 ↗</a>' +
             '<a href="https://www.tosummer.cn/" target="_blank" class="px-4 py-2 border border-brand-dark text-brand-dark text-[10px] uppercase tracking-widest hover:bg-brand-dark hover:text-white transition-colors">前往 观夏官方网站 ↗</a>' +
           '</div>' +
         '</div>',
@@ -989,7 +1000,7 @@
           '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“老钱风的低调克制与解构剪裁的冲突，正成为全球高定秀场的主流情绪。”</p>' +
           '<p><b>【色彩与趋势分析】</b>提取经典黑、香槟金、亚麻米与鼠尾草绿，分析其在秋冬秀场中如何传递沉稳与松弛的时代心理。</p>' +
           '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
-            '<a href="https://www.vogue.com/fashion-shows" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">前往 Vogue Runway 官方秀场 ↗</a>' +
+            '<a href="https://www.vogue.com/fashion-shows/paris-fall-2026-ready-to-wear" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">前往 Vogue Runway 巴黎秀场专区 ↗</a>' +
           '</div>' +
         '</div>',
         'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80'
@@ -1031,7 +1042,7 @@
           '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“存量时代下，前 2% 的顶级 VIC 客户决定了奢侈品增长的生死线。”</p>' +
           '<p><b>【报告摘要】</b>贝恩咨询指出，大众奢侈品消费趋于谨慎，品牌必须从单向广告转向专属的线下 Club 式私密体验与深度圈层运营。</p>' +
           '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
-            '<a href="https://www.bain.com/insights/topics/luxury-goods-report/" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">前往贝恩 Bain 官网阅读原版 PDF ↗</a>' +
+            '<a href="https://www.bain.com/insights/topics/luxury-goods-report/" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">前往贝恩 Bain 官网阅读原版研究报告 ↗</a>' +
           '</div>' +
         '</div>',
         ''
@@ -1057,27 +1068,13 @@
         'Hermès 爱马仕：百年马具工房怎样维护“稀缺性”神话？',
         '<div class="space-y-4 text-xs font-light text-gray-700 leading-relaxed">' +
           '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“真正的奢侈品从不迎合算法，而是耐心地等待懂得匠心的人。”</p>' +
-          '<p><b>【品牌 DNA 拆解】</b>爱马仕在数字化浪潮中坚持‘慢营销’与零打折政策，依靠极致的手工匠人传统与配货机制，牢牢锁死全球最高的心智粘性。</p>' +
+          '<p><b>【品牌 DNA 拆解】</b>爱马仕在数字化浪潮中坚持‘慢营销’与零打折政策，依靠极致的手工匠人传统与配货机制，在全球运营数十家自有生产基地，牢牢锁死全球最高的心智粘性。</p>' +
           '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
-            '<a href="https://luxe.co/post/hermes-brand-dna" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">前往华丽志阅读爱马仕专栏 ↗</a>' +
+            '<a href="https://luxe.co/post/461369" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">前往华丽志阅读爱马仕供应链深度专栏 ↗</a>' +
             '<a href="https://www.hermes.com/" target="_blank" class="px-4 py-2 border border-brand-dark text-brand-dark text-[10px] uppercase tracking-widest hover:bg-brand-dark hover:text-white transition-colors">前往 爱马仕官方网站 ↗</a>' +
           '</div>' +
         '</div>',
         ''
-      );
-    }
-
-    function openSpark1Modal() {
-      openDetailModal(
-        'Spark #142 · 极简包装上的字体微调，能增加 15% 的高定质感印象',
-        '<div class="space-y-4 text-xs font-light text-gray-700 leading-relaxed">' +
-          '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“字间距与字重的细微改变，是塑造高级感成本最低的杠杆。”</p>' +
-          '<p><b>【行业快讯】</b>BoF 最新商业洞察表明，在极简主义包装设计中，适当拉大字间距（Tracking）并采用衬线与非衬线字体的克制混搭，能瞬间提升消费者对产品高定质感的心理预期。</p>' +
-          '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
-            '<a href="https://www.businessoffashion.com/" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">前往 BoF 时尚商业评论 ↗</a>' +
-          '</div>' +
-        '</div>',
-        'https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=500&q=80'
       );
     }
 
@@ -1102,7 +1099,7 @@
           '<p class="p-3 bg-brand-champagne/40 font-serif italic text-brand-dark">“嗅觉记忆是通往消费者情感深处最直接的秘密通道。”</p>' +
           '<p><b>【行业快讯】</b>SocialBeta 观测指出，线下零售空间通过定制化特色香氛植入，不仅能延长访客驻留时长，更能极大地促进社交媒体的打卡分享率。</p>' +
           '<div class="pt-4 border-t border-brand-border flex flex-wrap gap-3">' +
-            '<a href="https://www.socialbeta.com/" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">前往 SocialBeta 探寻体验营销 ↗</a>' +
+            '<a href="https://socialbeta.com/" target="_blank" class="px-4 py-2 bg-brand-dark text-white text-[10px] uppercase tracking-widest hover:bg-brand-accent transition-colors">前往 SocialBeta 探寻体验营销 ↗</a>' +
           '</div>' +
         '</div>',
         'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=500&q=80'
